@@ -1,3 +1,3 @@
 My app will be a digital version of popular dice game Yahtzee, with a unique layout different than existing Yahtzee app.
 The new design is inspired by the the paper Yahtzee score sheets. New graphics will be designed. Instead of playing against a bot,
-the app will be designed for classic "hand-off"/pass-the-device multiplayer, with the ability to easily implement networked multiplayer later. The language/framework to be implemented in is unknown. Any suggestions? Ideally I'd like it to be played on both iOS and Android devices.
+the app will be designed for classic "hand-off"/pass-the-device multiplayer, with the ability to easily implement networked multiplayer later. The language/framework to be implemented in is unknown. Any suggestions? Ideally I'd like it to be played on both iOS and Android devices. Testing new branch
