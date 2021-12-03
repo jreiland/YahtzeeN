@@ -31,11 +31,6 @@ def main():
                 pygame.quit()
                 sys.exit()
         #game logic goes here
-        '''
-        
-        
-        
-        '''
 
         #set background color
         surface.fill(BKGR_RED)
