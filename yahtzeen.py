@@ -4,8 +4,8 @@ import sys
 pygame.init()
 
 #open a window, set size
-width = 300
-height = 300
+width = 900
+height = 700
 size = (width, height)
 surface = pygame.display.set_mode(size)
 
@@ -23,6 +23,13 @@ PURPLE = (96, 20,226)
 YELLOW = (234, 216, 65)
 BROWN = (119, 77, 43)
 PINK = (248, 179, 197)
+#temp to test image
+LEFT= pygame.Rect(width/10, height/4, 120, 120)
+
+def displayPicture(picture,location):
+    image = pygame.image.load(picture).convert_alpha()
+    image = pygame.transform.rotozoom(image, 0, 0.2)
+    surface.blit(image, location)
 
 def main():
     while (True):
@@ -31,10 +38,14 @@ def main():
                 pygame.quit()
                 sys.exit()
         #game logic goes here
+        
+
+
 
         #set background color
         surface.fill(BKGR_RED)
 
+        displayPicture("ace.png", LEFT)
 
         pygame.display.update()
 main()
