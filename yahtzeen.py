@@ -25,12 +25,12 @@ BROWN = (119, 77, 43)
 PINK = (248, 179, 197)
 
 #temp positions of six dice (to be used for upper section)
-LEFT= pygame.Rect((width/10), height/2, 120, 120)
-LESS_LEFT = pygame.Rect((width/10)+75, height/2, 120, 120)
-LESSER_LEFT= pygame.Rect((width/10)+150, height/2, 120, 120)
-EVEN_LESS_LEFT = pygame.Rect((width/10)+225, height/2, 120, 120)
-LEFFFFFFFT= pygame.Rect((width/10)+300, height/2, 120, 120)
-MOST_LEFT = pygame.Rect((width/10)+375, height/2, 120, 120)
+LEFT= pygame.Rect((width/10)+50, height/2.25, 120, 120)
+LESS_LEFT = pygame.Rect((width/10)+150, height/2.25, 120, 120)
+LESSER_LEFT= pygame.Rect((width/10)+250, height/2.25, 120, 120)
+EVEN_LESS_LEFT = pygame.Rect((width/10)+350, height/2.25, 120, 120)
+LEFFFFFFFT= pygame.Rect((width/10)+450, height/2.25, 120, 120)
+MOST_LEFT = pygame.Rect((width/10)+550, height/2.25, 120, 120)
 
 def displayPicture(picture,location):
     image = pygame.image.load(picture).convert_alpha()
@@ -51,15 +51,18 @@ def main():
         #draw UI!
         surface.fill(BKGR_RED)
 
-        pygame.draw.line(surface, BLACK, (0, 200),(width, 200),2) #top third
-        pygame.draw.line(surface, BLACK, (0, 550),(width, 550),2) #bottom third
-        pygame.draw.line(surface, BLACK, (500,0), (500, 200),  2) #top third vertical line
-        displayPicture("six.png", LEFT)
-        displayPicture("ace.png", LESS_LEFT)
-        displayPicture("two.png", LESSER_LEFT)
-        displayPicture("three.png", EVEN_LESS_LEFT)
-        displayPicture("four.png", LEFFFFFFFT)
-        displayPicture("five.png", MOST_LEFT)
+        pygame.draw.line(surface, BLACK, (0, 700/3),(width, 700/3),2) #top third
+        pygame.draw.line(surface, BLACK, (0, 2*(700/3)),(width, 2*(700/3)),2) #bottom third
+        pygame.draw.line(surface, BLACK, (500,0), (500, 700/3),  2) #top third vertical line
+        pygame.draw.line(surface, BLACK, (500, 58), (width, 58), 2)
+        pygame.draw.line(surface, BLACK, (500, 116), (width, 116), 2)
+        pygame.draw.line(surface, BLACK, (500, 174), (width, 174), 2)
+        displayPicture("ace.png", LEFT)
+        displayPicture("two.png", LESS_LEFT)
+        displayPicture("three.png", LESSER_LEFT)
+        displayPicture("four.png", EVEN_LESS_LEFT)
+        displayPicture("five.png", LEFFFFFFFT)
+        displayPicture("six.png", MOST_LEFT)
 
         pygame.display.update()
 main()
