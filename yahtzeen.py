@@ -38,8 +38,10 @@ def displayPicture(picture,location,scale):
     image = pygame.transform.rotozoom(image, 0, scale)
     surface.blit(image, location)
 
-def displayMessage(words, font,fontSize, x, y, color):
+def displayMessage(words, font,fontSize, x, y, color, isUnderlined):
     font = pygame.font.Font(font, fontSize)
+    if(isUnderlined):
+        font.underline = True
     text = font.render(words, True, color)
     textBounds = text.get_rect()
     textBounds.center = (x, y)
@@ -91,18 +93,19 @@ def main():
         displayPicture("six.png", MOST_LEFT, 0.087081)
 
         #logo text
-        displayMessage("YahtzeeN!", "Smooch-Regular.ttf", 72, 650, 30, WHITE)
+        displayMessage("YahtzeeN!", "Smooch-Regular.ttf", 72, 650, 30, WHITE, False)
         #display upper section labels
-        displayMessage("Aces", "Smooch-Regular.ttf", 48, (width/10)+50, height/2.18, WHITE)
-        displayMessage("Twos", "Smooch-Regular.ttf", 48, (width/10)+175, height/2.18, WHITE)
-        displayMessage("Threes", "Smooch-Regular.ttf", 48, (width/10)+300, height/2.18, WHITE)
-        displayMessage("Fours", "Smooch-Regular.ttf", 48, (width/10)+425, height/2.18, WHITE)
-        displayMessage("Fives", "Smooch-Regular.ttf", 48, (width/10)+550, height/2.18, WHITE)
-        displayMessage("Sixes", "Smooch-Regular.ttf", 48, (width/10)+675, height/2.18, WHITE)
+        displayMessage("Aces", "Smooch-Regular.ttf", 48, (width/10)+50, height/2.18, WHITE, False)
+        displayMessage("Twos", "Smooch-Regular.ttf", 48, (width/10)+175, height/2.18, WHITE, False)
+        displayMessage("Threes", "Smooch-Regular.ttf", 48, (width/10)+300, height/2.18, WHITE, False)
+        displayMessage("Fours", "Smooch-Regular.ttf", 48, (width/10)+425, height/2.18, WHITE, False)
+        displayMessage("Fives", "Smooch-Regular.ttf", 48, (width/10)+550, height/2.18, WHITE, False)
+        displayMessage("Sixes", "Smooch-Regular.ttf", 48, (width/10)+675, height/2.18, WHITE, False)
         #display player/role state label
-        displayMessage("Player X: Roll x of 3", "Raleway-ExtraLight.ttf", 34, 150, 40, WHITE)
+        displayMessage("Player X: Roll x of 3", "Raleway-Light.ttf", 34, 150, 40, WHITE, False)
         #display "upper section" and "lower section" titles
-        displayMessage("Upper Section", "Raleway-ExtraLight.ttf", 48, width/2, height/2.7, WHITE)
+        displayMessage("Upper Section", "Raleway-Light.ttf", 40, width/2, height/2.7, WHITE, True)
+        displayMessage("Lower Section", "Raleway-Light.ttf", 40, width/2, 2.1*(700/3), WHITE, True)
 
         pygame.display.update()
 main()
