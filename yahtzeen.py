@@ -18,8 +18,6 @@ BLUE =     (0, 0, 255)
 BKGR_RED = (148, 10, 10)
 WHITE =    (255, 255, 255)
 BLACK =    (0, 0, 0)
-PURPLE =   (96, 20, 226)
-BROWN =    (119, 77, 43)
 
 #temp positions of six dice (to be used for upper section)
 LEFT = pygame.Rect((width/10)+50, height/2.25, 120, 120)
@@ -28,7 +26,7 @@ LESSER_LEFT = pygame.Rect((width/10)+250, height/2.25, 120, 120)
 EVEN_LESS_LEFT = pygame.Rect((width/10)+350, height/2.25, 120, 120)
 LEFFFFFFFT = pygame.Rect((width/10)+450, height/2.25, 120, 120)
 MOST_LEFT = pygame.Rect((width/10)+550, height/2.25, 120, 120)
-
+#positions of current roll
 TOP_LEFT = pygame.Rect(30, 120, 120, 120)
 TOP_LESS_LEFT = pygame.Rect(120, 120, 120, 120)
 TOP_LESSER_LEFT = pygame.Rect(210, 120, 120, 120)
@@ -40,6 +38,13 @@ def displayPicture(picture,location,scale):
     image = pygame.transform.rotozoom(image, 0, scale)
     surface.blit(image, location)
 
+def displayMessage(words, font,fontSize, x, y, color):
+    font = pygame.font.Font(font, fontSize)
+    text = font.render(words, True, color)
+    textBounds = text.get_rect()
+    textBounds.center = (x, y)
+    surface.blit(text, textBounds)
+
 def main():
     while (True):
         for event in pygame.event.get():
@@ -48,8 +53,6 @@ def main():
                 sys.exit()
         #game logic goes here
         
-
-
 
         #draw UI!
         surface.fill(BKGR_RED)
@@ -86,6 +89,10 @@ def main():
         displayPicture("four.png", EVEN_LESS_LEFT, 0.087081)
         displayPicture("five.png", LEFFFFFFFT, 0.087081)
         displayPicture("six.png", MOST_LEFT, 0.087081)
+
+        #text
+        displayMessage("YahtzeeN!", "Smooch-Regular.ttf", 72, 650, 30, WHITE)
+        displayMessage("Aces", "Smooch-Regular.ttf", 48, (width/10)+95, height/2.45, WHITE)
 
         pygame.display.update()
 main()
