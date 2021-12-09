@@ -20,12 +20,12 @@ WHITE =    (255, 255, 255)
 BLACK =    (0, 0, 0)
 
 #temp positions of six dice (to be used for upper section)
-LEFT = pygame.Rect((width/10), height/2.25, 120, 120)
-LESS_LEFT = pygame.Rect((width/10)+125, height/2.25, 120, 120)
-LESSER_LEFT = pygame.Rect((width/10)+250, height/2.25, 120, 120)
-EVEN_LESS_LEFT = pygame.Rect((width/10)+375, height/2.25, 120, 120)
-LEFFFFFFFT = pygame.Rect((width/10)+500, height/2.25, 120, 120)
-MOST_LEFT = pygame.Rect((width/10)+625, height/2.25, 120, 120)
+LEFT = pygame.Rect((width/10), height/2.05, 120, 120)
+LESS_LEFT = pygame.Rect((width/10)+125, height/2.05, 120, 120)
+LESSER_LEFT = pygame.Rect((width/10)+250, height/2.05, 120, 120)
+EVEN_LESS_LEFT = pygame.Rect((width/10)+375, height/2.05, 120, 120)
+LEFFFFFFFT = pygame.Rect((width/10)+500, height/2.05, 120, 120)
+MOST_LEFT = pygame.Rect((width/10)+625, height/2.05, 120, 120)
 #positions of current roll
 TOP_LEFT = pygame.Rect(30, 120, 120, 120)
 TOP_LESS_LEFT = pygame.Rect(120, 120, 120, 120)
@@ -90,14 +90,19 @@ def main():
         displayPicture("five.png", LEFFFFFFFT, 0.087081)
         displayPicture("six.png", MOST_LEFT, 0.087081)
 
-        #text
+        #logo text
         displayMessage("YahtzeeN!", "Smooch-Regular.ttf", 72, 650, 30, WHITE)
-        displayMessage("Aces", "Smooch-Regular.ttf", 48, (width/10)+50, height/2.45, WHITE)
-        displayMessage("Twos", "Smooch-Regular.ttf", 48, (width/10)+175, height/2.45, WHITE)
-        displayMessage("Threes", "Smooch-Regular.ttf", 48, (width/10)+300, height/2.45, WHITE)
-        displayMessage("Fours", "Smooch-Regular.ttf", 48, (width/10)+425, height/2.45, WHITE)
-        displayMessage("Fives", "Smooch-Regular.ttf", 48, (width/10)+550, height/2.45, WHITE)
-        displayMessage("Sixes", "Smooch-Regular.ttf", 48, (width/10)+675, height/2.45, WHITE)
+        #display upper section labels
+        displayMessage("Aces", "Smooch-Regular.ttf", 48, (width/10)+50, height/2.18, WHITE)
+        displayMessage("Twos", "Smooch-Regular.ttf", 48, (width/10)+175, height/2.18, WHITE)
+        displayMessage("Threes", "Smooch-Regular.ttf", 48, (width/10)+300, height/2.18, WHITE)
+        displayMessage("Fours", "Smooch-Regular.ttf", 48, (width/10)+425, height/2.18, WHITE)
+        displayMessage("Fives", "Smooch-Regular.ttf", 48, (width/10)+550, height/2.18, WHITE)
+        displayMessage("Sixes", "Smooch-Regular.ttf", 48, (width/10)+675, height/2.18, WHITE)
+        #display player/role state label
+        displayMessage("Player X: Roll x of 3", "Raleway-ExtraLight.ttf", 34, 150, 40, WHITE)
+        #display "upper section" and "lower section" titles
+        displayMessage("Upper Section", "Raleway-ExtraLight.ttf", 48, width/2, height/2.7, WHITE)
 
         pygame.display.update()
 main()
