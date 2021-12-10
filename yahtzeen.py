@@ -26,6 +26,12 @@ LESSER_LEFT = pygame.Rect((width/10)+250, height/2.15, 120, 120)
 EVEN_LESS_LEFT = pygame.Rect((width/10)+375, height/2.15, 120, 120)
 LEFFFFFFFT = pygame.Rect((width/10)+500, height/2.15, 120, 120)
 MOST_LEFT = pygame.Rect((width/10)+625, height/2.15, 120, 120)
+#lock positions
+LOCK_A = pygame.Rect(54, 135, 120, 120)
+LOCK_B = pygame.Rect(144, 135, 120, 120)
+LOCK_C = pygame.Rect(234, 135, 120, 120)
+LOCK_D = pygame.Rect(324, 135, 120, 120)
+LOCK_E = pygame.Rect(414, 135, 120, 120)
 #positions of current roll
 TOP_LEFT = pygame.Rect(30, 120, 120, 120)
 TOP_LESS_LEFT = pygame.Rect(120, 120, 120, 120)
@@ -87,6 +93,13 @@ def main():
         displayPicture("four.png", TOP_EVEN_LESS_LEFT, 0.076555)
         displayPicture("five.png", TOP_LEFFFFFFFT, 0.076555)
 
+        #display die locks
+        displayPicture("lock.png", LOCK_A, 0.057416)
+        displayPicture("lock.png", LOCK_B, 0.057416)
+        displayPicture("lock.png", LOCK_C, 0.057416)
+        displayPicture("lock.png", LOCK_D, 0.057416)
+        displayPicture("lock.png", LOCK_E, 0.057416)
+
         #display middle dice
         displayPicture("ace.png", LEFT, 0.087081)
         displayPicture("two.png", LESS_LEFT, 0.087081)
@@ -112,9 +125,9 @@ def main():
         displayMessage("Upper Section", "Raleway-Light.ttf", 40, width/2, height/2.7, WHITE, True)
         displayMessage("Lower Section", "Raleway-Light.ttf", 40, width/2, 2.12*(700/3), WHITE, True)
         #display "upper section score" and "lower section score"
-        displayMessage("Upper Section Score: XX", "Raleway-SemiBold.ttf", 34, 700, 85, WHITE, False)
-        displayMessage("Lower Section Score: XX", "Raleway-SemiBold.ttf", 34, 700, 143, WHITE, False)
-        displayMessage("Total Score: XX", "Raleway-SemiBold.ttf", 34, 627, 201, WHITE, False)
+        displayMessage("Upper Section Score: XXX", "Raleway-SemiBold.ttf", 32, 700, 85, WHITE, False)
+        displayMessage("Lower Section Score: XXX", "Raleway-SemiBold.ttf", 32, 700, 143, WHITE, False)
+        displayMessage("Total Score: XXX", "Raleway-SemiBold.ttf", 32, 631, 201, WHITE, False)
         #display each lower section category name
         displayMessage("3 of a Kind", "Smooch-Regular.ttf", 27, width/14, 542, WHITE, False)
         displayMessage("4 of a Kind", "Smooch-Regular.ttf", 27, (3*width)/14, 542, WHITE, False)
@@ -127,20 +140,20 @@ def main():
         ###NOTE You will need to add a space if the score is a single digit instead of two digits###
 
         #display upper section scores
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (width/10)+45, height/1.6, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (width/10)+170, height/1.6, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (width/10)+295, height/1.6, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (width/10)+420, height/1.6, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (width/10)+545, height/1.6, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (width/10)+670, height/1.6, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+45, height/1.6, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+170, height/1.6, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+295, height/1.6, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+420, height/1.6, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+545, height/1.6, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+670, height/1.6, WHITE, False)
         #display lower section scores
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (2*width)/28, 580, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (6*width)/28, 580, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (10*width)/28, 580, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (14*width)/28, 580, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (18*width)/28, 580, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (22*width)/28, 580, WHITE, False)
-        displayMessage("NaN", "Raleway-Light.ttf", 30, (26*width)/28, 580, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (2*width)/28, 580, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (6*width)/28, 580, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (10*width)/28, 580, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (14*width)/28, 580, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (18*width)/28, 580, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (22*width)/28, 580, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (26*width)/28, 580, WHITE, False)
         pygame.display.update()
 
 main()
