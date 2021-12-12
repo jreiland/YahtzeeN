@@ -111,6 +111,20 @@ def main():
                     print("fives")
                 elif(SCORING_SIX.collidepoint(pygame.mouse.get_pos())):
                     print("sixes")
+                elif(pygame.Rect(0, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
+                    print("3k")
+                elif(pygame.Rect(width/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
+                    print("4k")
+                elif(pygame.Rect((2*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
+                    print("fh")
+                elif(pygame.Rect((3*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
+                    print("smstr")
+                elif(pygame.Rect((4*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
+                    print("lgstr")
+                elif(pygame.Rect((5*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
+                    print("yhtz")
+                elif(pygame.Rect((6*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
+                    print("chance")
 
 
 
