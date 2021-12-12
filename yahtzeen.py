@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 pygame.init()
 
@@ -20,24 +21,26 @@ WHITE =    (255, 255, 255)
 BLACK =    (0, 0, 0)
 
 #temp positions of six dice (to be used for upper section scoring)
-SCORING_ONE = pygame.Rect((width/10), height/2.15, 120, 120)
-SCORING_TWO = pygame.Rect((width/10)+125, height/2.15, 120, 120)
-SCORING_THREE = pygame.Rect((width/10)+250, height/2.15, 120, 120)
-SCORING_FOUR = pygame.Rect((width/10)+375, height/2.15, 120, 120)
-SCORING_FIVE = pygame.Rect((width/10)+500, height/2.15, 120, 120)
-SCORING_SIX = pygame.Rect((width/10)+625, height/2.15, 120, 120)
-#padlock icon positions
-LOCK_ONE = pygame.Rect(54, 135, 120, 120)
-LOCK_TWO = pygame.Rect(144, 135, 120, 120)
-LOCK_THREE = pygame.Rect(234, 135, 120, 120)
-LOCK_FOUR = pygame.Rect(324, 135, 120, 120)
-LOCK_FIVE = pygame.Rect(414, 135, 120, 120)
+SCORING_ONE = pygame.Rect((width/10), height/2.15, 91, 125)
+SCORING_TWO = pygame.Rect((width/10)+125, height/2.15, 91, 125)
+SCORING_THREE = pygame.Rect((width/10)+250, height/2.15, 91, 125)
+SCORING_FOUR = pygame.Rect((width/10)+375, height/2.15, 91, 125)
+SCORING_FIVE = pygame.Rect((width/10)+500, height/2.15, 91, 125)
+SCORING_SIX = pygame.Rect((width/10)+625, height/2.15, 91, 125)
+#padlock icon positions for current roll section
+LOCK_ONE = pygame.Rect(54, 135, 80, 80)
+LOCK_TWO = pygame.Rect(144, 135, 80, 80)
+LOCK_THREE = pygame.Rect(234, 135, 80, 80)
+LOCK_FOUR = pygame.Rect(324, 135, 80, 80)
+LOCK_FIVE = pygame.Rect(414, 135, 80, 80)
 #positions of current roll
-CURR_ONE = pygame.Rect(30, 120, 120, 120)
-CURR_TWO = pygame.Rect(120, 120, 120, 120)
-CURR_THREE = pygame.Rect(210, 120, 120, 120)
-CURR_FOUR = pygame.Rect(300, 120, 120, 120)
-CURR_FIVE = pygame.Rect(390, 120, 120, 120)
+CURR_ONE = pygame.Rect(30, 120, 80, 80)
+CURR_TWO = pygame.Rect(120, 120, 80, 80)
+CURR_THREE = pygame.Rect(210, 120, 80, 80)
+CURR_FOUR = pygame.Rect(300, 120, 80, 80)
+CURR_FIVE = pygame.Rect(390, 120, 80, 80)
+#roll now rect object
+ROLL_NOW = pygame.Rect(310, 10, 182, 60)
 
 #displays the given picture file when given a filename/path, Rect object for location, and scale factor
 def displayPicture(picture, location, scale):
@@ -83,8 +86,40 @@ def main():
             if (event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)):
                 pygame.quit()
                 sys.exit()
+            if (event.type == pygame.MOUSEBUTTONDOWN):
+                if(ROLL_NOW.collidepoint(pygame.mouse.get_pos())):
+                    print("yay")
+                elif(CURR_ONE.collidepoint(pygame.mouse.get_pos())):
+                    print("die A")
+                elif(CURR_TWO.collidepoint(pygame.mouse.get_pos())):
+                    print("die B")
+                elif(CURR_THREE.collidepoint(pygame.mouse.get_pos())):
+                    print("die C")
+                elif(CURR_FOUR.collidepoint(pygame.mouse.get_pos())):
+                    print("die D")
+                elif(CURR_FIVE.collidepoint(pygame.mouse.get_pos())):
+                    print("die E")
+                elif(SCORING_ONE.collidepoint(pygame.mouse.get_pos())):
+                    print("aces")
+                elif(SCORING_TWO.collidepoint(pygame.mouse.get_pos())):
+                    print("twos")
+                elif(SCORING_THREE.collidepoint(pygame.mouse.get_pos())):
+                    print("threes")
+                elif(SCORING_FOUR.collidepoint(pygame.mouse.get_pos())):
+                    print("fours")
+                elif(SCORING_FIVE.collidepoint(pygame.mouse.get_pos())):
+                    print("fives")
+                elif(SCORING_SIX.collidepoint(pygame.mouse.get_pos())):
+                    print("sixes")
+
+
+
+
+
         #game logic goes here
         
+        
+
 
         #draw UI!
 
@@ -109,7 +144,7 @@ def main():
         pygame.draw.line(surface, BLACK, ((4*width)/7, 525), ((4*width)/7, height), 2) #fourth/fifth lower score section
         pygame.draw.line(surface, BLACK, ((5*width)/7, 525), ((5*width)/7, height), 2) #fifth/sixth lower score section
         pygame.draw.line(surface, BLACK, ((6*width)/7, 525), ((6*width)/7, height), 2) #sixth/seventh lower score section
-        pygame.draw.rect(surface, GREEN, pygame.Rect(310, 10, 182, 60), 0, 3) #rect is at (310, 10), width 182, height 60px
+        pygame.draw.rect(surface, GREEN, ROLL_NOW, 0, 3) #rect is at (310, 10), width 182, height 60px
 
         #display dice for current roll, need to be 80 pixels each with 10 px between each
         displayPicture("ace.png", CURR_ONE, 0.076555)
@@ -165,20 +200,20 @@ def main():
         ###NOTE You will need to add a space if the score is a single digit instead of two digits###
 
         #display upper section scores
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+45, height/1.6, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+170, height/1.6, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+295, height/1.6, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+420, height/1.6, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+545, height/1.6, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+670, height/1.6, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+45, height/1.6, WHITE, False) #ace
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+170, height/1.6, WHITE, False) #two
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+295, height/1.6, WHITE, False) #three
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+420, height/1.6, WHITE, False) #four
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+545, height/1.6, WHITE, False) #five
+        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+670, height/1.6, WHITE, False) #six
         #display lower section scores
-        displayMessage("???", "Raleway-Light.ttf", 30, (2*width)/28, 580, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (6*width)/28, 580, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (10*width)/28, 580, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (14*width)/28, 580, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (18*width)/28, 580, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (22*width)/28, 580, WHITE, False)
-        displayMessage("???", "Raleway-Light.ttf", 30, (26*width)/28, 580, WHITE, False)
+        displayMessage("???", "Raleway-Light.ttf", 30, (2*width)/28, 580, WHITE, False) #3 of a kind
+        displayMessage("???", "Raleway-Light.ttf", 30, (6*width)/28, 580, WHITE, False) #4 of a kind
+        displayMessage("???", "Raleway-Light.ttf", 30, (10*width)/28, 580, WHITE, False) #full house
+        displayMessage("???", "Raleway-Light.ttf", 30, (14*width)/28, 580, WHITE, False) #small straight
+        displayMessage("???", "Raleway-Light.ttf", 30, (18*width)/28, 580, WHITE, False) #large straight
+        displayMessage("???", "Raleway-Light.ttf", 30, (22*width)/28, 580, WHITE, False) #YAHTZEE!
+        displayMessage("???", "Raleway-Light.ttf", 30, (26*width)/28, 580, WHITE, False) #chance
         pygame.display.update()
 
 main()
