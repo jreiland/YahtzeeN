@@ -19,32 +19,34 @@ BKGR_RED = (148, 10, 10)
 WHITE =    (255, 255, 255)
 BLACK =    (0, 0, 0)
 
-#temp positions of six dice (to be used for upper section)
-LEFT = pygame.Rect((width/10), height/2.15, 120, 120)
-LESS_LEFT = pygame.Rect((width/10)+125, height/2.15, 120, 120)
-LESSER_LEFT = pygame.Rect((width/10)+250, height/2.15, 120, 120)
-EVEN_LESS_LEFT = pygame.Rect((width/10)+375, height/2.15, 120, 120)
-LEFFFFFFFT = pygame.Rect((width/10)+500, height/2.15, 120, 120)
-MOST_LEFT = pygame.Rect((width/10)+625, height/2.15, 120, 120)
-#lock positions
-LOCK_A = pygame.Rect(54, 135, 120, 120)
-LOCK_B = pygame.Rect(144, 135, 120, 120)
-LOCK_C = pygame.Rect(234, 135, 120, 120)
-LOCK_D = pygame.Rect(324, 135, 120, 120)
-LOCK_E = pygame.Rect(414, 135, 120, 120)
+#temp positions of six dice (to be used for upper section scoring)
+SCORING_ONE = pygame.Rect((width/10), height/2.15, 120, 120)
+SCORING_TWO = pygame.Rect((width/10)+125, height/2.15, 120, 120)
+SCORING_THREE = pygame.Rect((width/10)+250, height/2.15, 120, 120)
+SCORING_FOUR = pygame.Rect((width/10)+375, height/2.15, 120, 120)
+SCORING_FIVE = pygame.Rect((width/10)+500, height/2.15, 120, 120)
+SCORING_SIX = pygame.Rect((width/10)+625, height/2.15, 120, 120)
+#padlock icon positions
+LOCK_ONE = pygame.Rect(54, 135, 120, 120)
+LOCK_TWO = pygame.Rect(144, 135, 120, 120)
+LOCK_THREE = pygame.Rect(234, 135, 120, 120)
+LOCK_FOUR = pygame.Rect(324, 135, 120, 120)
+LOCK_FIVE = pygame.Rect(414, 135, 120, 120)
 #positions of current roll
-TOP_LEFT = pygame.Rect(30, 120, 120, 120)
-TOP_LESS_LEFT = pygame.Rect(120, 120, 120, 120)
-TOP_LESSER_LEFT = pygame.Rect(210, 120, 120, 120)
-TOP_EVEN_LESS_LEFT = pygame.Rect(300, 120, 120, 120)
-TOP_LEFFFFFFFT = pygame.Rect(390, 120, 120, 120)
+CURR_ONE = pygame.Rect(30, 120, 120, 120)
+CURR_TWO = pygame.Rect(120, 120, 120, 120)
+CURR_THREE = pygame.Rect(210, 120, 120, 120)
+CURR_FOUR = pygame.Rect(300, 120, 120, 120)
+CURR_FIVE = pygame.Rect(390, 120, 120, 120)
 
-def displayPicture(picture,location,scale):
+#displays the given picture file when given a filename/path, Rect object for location, and scale factor
+def displayPicture(picture, location, scale):
     image = pygame.image.load(picture).convert_alpha()
     image = pygame.transform.rotozoom(image, 0, scale)
     surface.blit(image, location)
 
-def displayMessage(words, font,fontSize, x, y, color, isUnderlined):
+#displays the given text in the specified font (pass None for default/fallback), size, location, color, and underlined as requested
+def displayMessage(words, font, fontSize, x, y, color, isUnderlined):
     font = pygame.font.Font(font, fontSize)
     if(isUnderlined):
         font.underline = True
@@ -54,6 +56,28 @@ def displayMessage(words, font,fontSize, x, y, color, isUnderlined):
     surface.blit(text, textBounds)
 
 def main():
+    #set initial state variables
+    dieOneValue = 0
+    dieTwoValue = 0
+    dieThreeValue = 0
+    dieFourValue = 0
+    dieFiveValue = 0
+    dieOne_isLocked = False
+    dieTwo_isLocked = False
+    dieThree_isLocked = False
+    dieFour_isLocked = False
+    dieFive_isLocked = False
+    currentRollNum = 1 #start at roll 1 of 3
+    currentPlayerNum = 1 #set player one as initial player
+    playerOneScores = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    playerOneUpper = 0
+    playerOneLower = 0
+    playerOneTotal = 0
+    playerTwoScores = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    playerTwoUpper = 0
+    playerTwoLower = 0
+    playerTwoTotal = 0
+
     while (True):
         for event in pygame.event.get():
             if (event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)):
@@ -63,50 +87,51 @@ def main():
         
 
         #draw UI!
+
         surface.fill(BKGR_RED)
 
-        pygame.draw.line(surface, BLACK, (0, 700/3),(width, 700/3),2) #top third
-        pygame.draw.line(surface, BLACK, (0, 2*(700/3)),(width, 2*(700/3)),2) #bottom third
-        pygame.draw.line(surface, BLACK, (500,0), (500, 700/3),  2) #top third vertical line
+        pygame.draw.line(surface, BLACK, (0, 700/3),(width, 700/3),2) #top third horizontal line
+        pygame.draw.line(surface, BLACK, (0, 2*(700/3)),(width, 2*(700/3)),2) #bottom third horizontal line
+        pygame.draw.line(surface, BLACK, (500,0), (500, 700/3),  2) #top third vertical line (for logo/totals area)
         pygame.draw.line(surface, BLACK, (500, 58), (width, 58), 2) #top logo/scoring line
         pygame.draw.line(surface, BLACK, (500, 116), (width, 116), 2) #second scoring line
         pygame.draw.line(surface, BLACK, (500, 174), (width, 174), 2) #third scoring line
 
-        #draw player indicator box
+        #draw player indicator "box" in upper left of window
         pygame.draw.line(surface, BLACK, (300,0), (300, 75), 2)
         pygame.draw.line(surface, BLACK, (0, 75), (300, 75), 2)
 
         #miscellaneous UI elements
         pygame.draw.line(surface, BLACK, (0, 525), (width, 525), 2) #lower section score split line
-        pygame.draw.line(surface, BLACK, (width/7, 525), (width/7, height), 2) #first lower score section
-        pygame.draw.line(surface, BLACK, ((2*width)/7, 525), ((2*width)/7, height), 2) #second lower score section
-        pygame.draw.line(surface, BLACK, ((3*width)/7, 525), ((3*width)/7, height), 2) #third lower score section
-        pygame.draw.line(surface, BLACK, ((4*width)/7, 525), ((4*width)/7, height), 2) #fourth lower score section
-        pygame.draw.line(surface, BLACK, ((5*width)/7, 525), ((5*width)/7, height), 2) #fifth lower score section
-        pygame.draw.line(surface, BLACK, ((6*width)/7, 525), ((6*width)/7, height), 2) #sixth lower score section
+        pygame.draw.line(surface, BLACK, (width/7, 525), (width/7, height), 2) #first/second lower score section
+        pygame.draw.line(surface, BLACK, ((2*width)/7, 525), ((2*width)/7, height), 2) #second/third lower score section
+        pygame.draw.line(surface, BLACK, ((3*width)/7, 525), ((3*width)/7, height), 2) #third/fourth lower score section
+        pygame.draw.line(surface, BLACK, ((4*width)/7, 525), ((4*width)/7, height), 2) #fourth/fifth lower score section
+        pygame.draw.line(surface, BLACK, ((5*width)/7, 525), ((5*width)/7, height), 2) #fifth/sixth lower score section
+        pygame.draw.line(surface, BLACK, ((6*width)/7, 525), ((6*width)/7, height), 2) #sixth/seventh lower score section
         pygame.draw.rect(surface, GREEN, pygame.Rect(310, 10, 182, 60), 0, 3) #rect is at (310, 10), width 182, height 60px
 
         #display dice for current roll, need to be 80 pixels each with 10 px between each
-        displayPicture("ace.png", TOP_LEFT, 0.076555)
-        displayPicture("two.png", TOP_LESS_LEFT, 0.076555)
-        displayPicture("three.png", TOP_LESSER_LEFT, 0.076555)
-        displayPicture("four.png", TOP_EVEN_LESS_LEFT, 0.076555)
-        displayPicture("five.png", TOP_LEFFFFFFFT, 0.076555)
+        displayPicture("ace.png", CURR_ONE, 0.076555)
+        displayPicture("two.png", CURR_TWO, 0.076555)
+        displayPicture("three.png", CURR_THREE, 0.076555)
+        displayPicture("four.png", CURR_FOUR, 0.076555)
+        displayPicture("five.png", CURR_FIVE, 0.076555)
 
         #display die locks
-        displayPicture("lock.png", LOCK_A, 0.057416)
-        displayPicture("lock.png", LOCK_B, 0.057416)
-        displayPicture("lock.png", LOCK_C, 0.057416)
-        displayPicture("lock.png", LOCK_D, 0.057416)
-        displayPicture("lock.png", LOCK_E, 0.057416)
+        displayPicture("lock.png", LOCK_ONE, 0.057416)
+        displayPicture("lock.png", LOCK_TWO, 0.057416)
+        displayPicture("lock.png", LOCK_THREE, 0.057416)
+        displayPicture("lock.png", LOCK_FOUR, 0.057416)
+        displayPicture("lock.png", LOCK_FIVE, 0.057416)
 
         #display middle dice
-        displayPicture("ace.png", LEFT, 0.087081)
-        displayPicture("two.png", LESS_LEFT, 0.087081)
-        displayPicture("three.png", LESSER_LEFT, 0.087081)
-        displayPicture("four.png", EVEN_LESS_LEFT, 0.087081)
-        displayPicture("five.png", LEFFFFFFFT, 0.087081)
-        displayPicture("six.png", MOST_LEFT, 0.087081)
+        displayPicture("ace.png", SCORING_ONE, 0.087081)
+        displayPicture("two.png", SCORING_TWO, 0.087081)
+        displayPicture("three.png", SCORING_THREE, 0.087081)
+        displayPicture("four.png", SCORING_FOUR, 0.087081)
+        displayPicture("five.png", SCORING_FIVE, 0.087081)
+        displayPicture("six.png", SCORING_SIX, 0.087081)
 
         #logo text
         displayMessage("YahtzeeN!", "Smooch-Regular.ttf", 72, 700, 30, WHITE, False)
@@ -118,7 +143,7 @@ def main():
         displayMessage("Fives", "Smooch-Regular.ttf", 48, (width/10)+550, height/2.28, WHITE, False)
         displayMessage("Sixes", "Smooch-Regular.ttf", 48, (width/10)+675, height/2.28, WHITE, False)
         #display player/role state label
-        displayMessage("Player X: Roll x of 3", "Raleway-Light.ttf", 32, 150, 40, WHITE, False)
+        displayMessage("Player " + str(currentPlayerNum) + ": Roll " + str(currentRollNum) + " of 3", "Raleway-Light.ttf", 32, 150, 40, WHITE, False)
         #display "roll now!" button text
         displayMessage("Roll Now!", "Raleway-SemiBold.ttf", 34, 402, 40, BLACK, True)
         #display "upper section" and "lower section" titles
