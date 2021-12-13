@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+from player import Player
 
 pygame.init()
 
