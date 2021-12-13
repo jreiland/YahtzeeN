@@ -173,7 +173,6 @@ def main():
     playerTwoTotal = 0
     alreadyScoredP1 = [False, False, False, False, False, False, False, False, False, False, False, False]
     alreadyScoredP2 = [False, False, False, False, False, False, False, False, False, False, False, False]
-
  
     while (True):
         for event in pygame.event.get():
@@ -222,7 +221,7 @@ def main():
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[1] == False):
                             makeFrequencyList()
-                            playerOneScores[1] = frequencyList[1]
+                            playerOneScores[1] = 2*frequencyList[1]
                             alreadyScoredP1[1] = True
                             playerOneUpper = playerOneUpper + playerOneScores[1]
                             playerOneTotal = playerOneLower + playerOneUpper
@@ -233,7 +232,7 @@ def main():
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[1] == False):
                             makeFrequencyList()
-                            playerTwoScores[1] = frequencyList[1]
+                            playerTwoScores[1] = 2*frequencyList[1]
                             alreadyScoredP2[1] = True
                             playerTwoUpper = playerTwoUpper + playerTwoScores[1]
                             playerTwoTotal = playerTwoLower + playerTwoUpper
@@ -245,7 +244,7 @@ def main():
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[2] == False):
                             makeFrequencyList()
-                            playerOneScores[2] = frequencyList[2]
+                            playerOneScores[2] = 3*frequencyList[2]
                             alreadyScoredP1[2] = True
                             playerOneUpper = playerOneUpper + playerOneScores[2]
                             playerOneTotal = playerOneLower + playerOneUpper
@@ -256,7 +255,7 @@ def main():
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[2] == False):
                             makeFrequencyList()
-                            playerTwoScores[2] = frequencyList[2]
+                            playerTwoScores[2] = 3*frequencyList[2]
                             alreadyScoredP2[2] = True
                             playerTwoUpper = playerTwoUpper + playerTwoScores[2]
                             playerTwoTotal = playerTwoLower + playerTwoUpper
@@ -268,7 +267,7 @@ def main():
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[3] == False):
                             makeFrequencyList()
-                            playerOneScores[3] = frequencyList[3]
+                            playerOneScores[3] = 4*frequencyList[3]
                             alreadyScoredP1[3] = True
                             playerOneUpper = playerOneUpper + playerOneScores[3]
                             playerOneTotal = playerOneLower + playerOneUpper
@@ -279,7 +278,7 @@ def main():
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[3] == False):
                             makeFrequencyList()
-                            playerTwoScores[3] = frequencyList[3]
+                            playerTwoScores[3] = 4*frequencyList[3]
                             alreadyScoredP2[3] = True
                             playerTwoUpper = playerTwoUpper + playerTwoScores[3]
                             playerTwoTotal = playerTwoLower + playerTwoUpper
@@ -291,7 +290,7 @@ def main():
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[4] == False):
                             makeFrequencyList()
-                            playerOneScores[4] = frequencyList[4]
+                            playerOneScores[4] = 5*frequencyList[4]
                             alreadyScoredP1[4] = True
                             playerOneUpper = playerOneUpper + playerOneScores[4]
                             playerOneTotal = playerOneLower + playerOneUpper
@@ -302,7 +301,7 @@ def main():
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[4] == False):
                             makeFrequencyList()
-                            playerTwoScores[4] = frequencyList[4]
+                            playerTwoScores[4] = 5*frequencyList[4]
                             alreadyScoredP2[4] = True
                             playerTwoUpper = playerTwoUpper + playerTwoScores[4]
                             playerTwoTotal = playerTwoLower + playerTwoUpper
@@ -314,7 +313,7 @@ def main():
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[5] == False):
                             makeFrequencyList()
-                            playerOneScores[5] = frequencyList[5]
+                            playerOneScores[5] = 6*frequencyList[5]
                             alreadyScoredP1[5] = True
                             playerOneUpper = playerOneUpper + playerOneScores[5]
                             playerOneTotal = playerOneLower + playerOneUpper
@@ -325,7 +324,7 @@ def main():
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[5] == False):
                             makeFrequencyList()
-                            playerTwoScores[5] = frequencyList[5]
+                            playerTwoScores[5] = 6*frequencyList[5]
                             alreadyScoredP2[5] = True
                             playerTwoUpper = playerTwoUpper + playerTwoScores[5]
                             playerTwoTotal = playerTwoLower + playerTwoUpper
@@ -338,7 +337,7 @@ def main():
                         if (alreadyScoredP1[6] == False):
                             makeFrequencyList()
                             if (frequencyList.count(3) == 1):
-                                playerOneScores[6] = 3*(frequencyList.index(3) - 1)
+                                playerOneScores[6] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
                                 alreadyScoredP1[6] = True
                                 playerOneLower = playerOneLower + playerOneScores[6]
                                 playerOneTotal = playerOneLower + playerOneUpper
@@ -348,7 +347,6 @@ def main():
                                 clearDice()
                             else:
                                 #not a three of a kind
-                                playerOneScores[6] = 0
                                 alreadyScoredP1[6] = True
                                 currentPlayerNum = currentPlayerNum + 1
                                 currentRollNum = 0
@@ -358,7 +356,7 @@ def main():
                         if (alreadyScoredP2[6] == False):
                             makeFrequencyList()
                             if (frequencyList.count(3) == 1):
-                                playerTwoScores[6] = 3*(frequencyList.index(3) - 1)
+                                playerTwoScores[6] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
                                 alreadyScoredP1[6] = True
                                 playerTwoLower = playerTwoLower + playerTwoScores[6]
                                 playerTwoTotal = playerTwoLower + playerTwoUpper
@@ -368,7 +366,6 @@ def main():
                                 clearDice()
                             else:
                                 #not a three of a kind
-                                playerTwoScores[6] = 0
                                 alreadyScoredP2[6] = True
                                 currentPlayerNum = currentPlayerNum - 1
                                 currentRollNum = 0
@@ -379,7 +376,7 @@ def main():
                         if (alreadyScoredP1[7] == False):
                             makeFrequencyList()
                             if (frequencyList.count(4) == 1):
-                                playerOneScores[7] = 4*(frequencyList.index(4) - 1)
+                                playerOneScores[7] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
                                 alreadyScoredP1[7] = True
                                 playerOneLower = playerOneLower + playerOneScores[7]
                                 playerOneTotal = playerOneLower + playerOneUpper
@@ -389,7 +386,6 @@ def main():
                                 clearDice()
                             else:
                                 #not a four of a kind
-                                playerOneScores[7] = 0
                                 alreadyScoredP1[7] = True
                                 currentPlayerNum = currentPlayerNum + 1
                                 currentRollNum = 0
@@ -399,7 +395,7 @@ def main():
                         if (alreadyScoredP2[7] == False):
                             makeFrequencyList()
                             if (frequencyList.count(4) == 1):
-                                playerTwoScores[7] = 4*(frequencyList.index(4) - 1)
+                                playerTwoScores[7] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
                                 alreadyScoredP1[7] = True
                                 playerTwoLower = playerTwoLower + playerTwoScores[7]
                                 playerTwoTotal = playerTwoLower + playerTwoUpper
@@ -409,7 +405,6 @@ def main():
                                 clearDice()
                             else:
                                 #not a four of a kind
-                                playerTwoScores[7] = 0
                                 alreadyScoredP2[7] = True
                                 currentPlayerNum = currentPlayerNum - 1
                                 currentRollNum = 0
@@ -430,7 +425,6 @@ def main():
                                 clearDice()
                             else:
                                 #not a full house
-                                playerOneScores[8] = 0
                                 alreadyScoredP1[8] = True
                                 currentPlayerNum = currentPlayerNum + 1
                                 currentRollNum = 0
@@ -450,16 +444,120 @@ def main():
                                 clearDice()
                             else:
                                 #not a full house
-                                playerTwoScores[8] = 0
                                 alreadyScoredP2[8] = True
                                 currentPlayerNum = currentPlayerNum - 1
                                 currentRollNum = 0
                                 unlockDice()
                                 clearDice()
-                elif(pygame.Rect((3*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
-                    print("smstr")
-                elif(pygame.Rect((4*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
-                    print("lgstr")
+                elif(pygame.Rect((3*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #small straight
+                    tempList = [dieOneValue, dieTwoValue, dieThreeValue, dieFourValue, dieFiveValue]
+                    print(str(tempList))
+                    smStrOne = [1, 2, 3, 4]
+                    smStrTwo = [2, 3, 4, 5]
+                    smStrThree = [3, 4, 5, 6]
+                    #algorithm for checking subarray from: https://www.geeksforgeeks.org/python-check-for-sublist-in-list/
+                    validSmStr = False
+                    for indexA in range(len(tempList) - len(smStrOne) + 1):
+                        if tempList[indexA : indexA + len(smStrOne)] == smStrOne:
+                            validSmStr = True 
+                            break
+                    if (not(validSmStr)):
+                        for indexB in range(len(tempList) - len(smStrTwo) + 1):
+                            if tempList[indexB : indexB + len(smStrTwo)] == smStrTwo:
+                                validSmStr = True 
+                                break
+                    if (not(validSmStr)):
+                        for indexC in range(len(tempList) - len(smStrThree) + 1):
+                            if tempList[indexC : indexC + len(smStrThree)] == smStrThree:
+                                validSmStr = True 
+                                break
+                    
+                    if (currentPlayerNum == 1):
+                        if (alreadyScoredP1[9] == False):
+                            if (validSmStr):
+                                playerOneScores[9] = 30
+                                alreadyScoredP1[9] = True
+                                playerOneLower = playerOneLower + playerOneScores[9]
+                                playerOneTotal = playerOneLower + playerOneUpper
+                                currentPlayerNum = currentPlayerNum + 1
+                                currentRollNum = 0
+                                unlockDice()
+                                clearDice()
+                            else:
+                                alreadyScoredP1[9] = True
+                                currentPlayerNum = currentPlayerNum + 1
+                                currentRollNum = 0
+                                unlockDice()
+                                clearDice()
+                    elif (currentPlayerNum == 2):
+                        if (alreadyScoredP2[9] == False):
+                            if (validSmStr):
+                                playerTwoScores[9] = 30
+                                alreadyScoredP2[9] = True
+                                playerTwoLower = playerTwoLower + playerTwoScores[9]
+                                playerTwoTotal = playerTwoLower + playerTwoUpper
+                                currentPlayerNum = currentPlayerNum - 1
+                                currentRollNum = 0
+                                unlockDice()
+                                clearDice()
+                            else:
+                                alreadyScoredP2[9] = True
+                                currentPlayerNum = currentPlayerNum - 1
+                                currentRollNum = 0
+                                unlockDice()
+                                clearDice()
+                    
+                elif(pygame.Rect((4*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #large straight
+                    tempList = [dieOneValue, dieTwoValue, dieThreeValue, dieFourValue, dieFiveValue]
+                    lgStrOne = [1, 2, 3, 4, 5]
+                    lgStrTwo = [2, 3, 4, 5, 6]
+                    #algorithm for checking subarray from: https://www.geeksforgeeks.org/python-check-for-sublist-in-list/
+                    validLgStr = False
+                    for indexD in range(len(tempList) - len(lgStrOne) + 1):
+                        if tempList[indexD : indexD + len(lgStrOne)] == lgStrOne:
+                            validLgStr = True 
+                            break
+                    if (not(validLgStr)):
+                        for indexD in range(len(tempList) - len(lgStrTwo) + 1):
+                            if tempList[indexD : indexD + len(lgStrTwo)] == lgStrTwo:
+                                validLgStr = True 
+                                break
+
+                    if (currentPlayerNum == 1):
+                        if (alreadyScoredP1[10] == False):
+                            if (validLgStr):
+                                playerOneScores[10] = 40
+                                alreadyScoredP1[10] = True
+                                playerOneLower = playerOneLower + playerOneScores[10]
+                                playerOneTotal = playerOneLower + playerOneUpper
+                                currentPlayerNum = currentPlayerNum + 1
+                                currentRollNum = 0
+                                unlockDice()
+                                clearDice()
+                            else:
+                                alreadyScoredP1[10] = True
+                                currentPlayerNum = currentPlayerNum + 1
+                                currentRollNum = 0
+                                unlockDice()
+                                clearDice()
+                    elif (currentPlayerNum == 2):
+                        if (alreadyScoredP2[10] == False):
+                            if (validLgStr):
+                                playerTwoScores[10] = 40
+                                alreadyScoredP2[40] = True
+                                playerTwoLower = playerTwoLower + playerTwoScores[40]
+                                playerTwoTotal = playerTwoLower + playerTwoUpper
+                                currentPlayerNum = currentPlayerNum - 1
+                                currentRollNum = 0
+                                unlockDice()
+                                clearDice()
+                            else:
+                                alreadyScoredP2[10] = True
+                                currentPlayerNum = currentPlayerNum - 1
+                                currentRollNum = 0
+                                unlockDice()
+                                clearDice()
+
                 elif(pygame.Rect((5*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #yahtzee
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[11] == False):
@@ -475,7 +573,6 @@ def main():
                                 clearDice()
                             else:
                                 #not a yahtzee
-                                playerOneScores[11] = 0
                                 alreadyScoredP1[11] = True
                                 currentPlayerNum = currentPlayerNum + 1
                                 currentRollNum = 0
@@ -495,13 +592,12 @@ def main():
                                 clearDice()
                             else:
                                 #not a yahtzee
-                                playerTwoScores[11] = 0
                                 alreadyScoredP2[11] = True
                                 currentPlayerNum = currentPlayerNum - 1
                                 currentRollNum = 0
                                 unlockDice()
                                 clearDice()
-                elif(pygame.Rect((6*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
+                elif(pygame.Rect((6*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #chance
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[12] == False):
                             playerOneScores[12] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
