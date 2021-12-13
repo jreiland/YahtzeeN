@@ -377,7 +377,7 @@ def main():
                             makeFrequencyList()
                             if (frequencyList.count(3) == 1):
                                 playerTwoScores[6] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
-                                alreadyScoredP1[6] = True
+                                alreadyScoredP2[6] = True
                                 playerTwoLower = playerTwoLower + playerTwoScores[6]
                                 playerTwoTotal = playerTwoLower + playerTwoUpper
                                 currentPlayerNum = currentPlayerNum - 1
@@ -416,7 +416,7 @@ def main():
                             makeFrequencyList()
                             if (frequencyList.count(4) == 1):
                                 playerTwoScores[7] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
-                                alreadyScoredP1[7] = True
+                                alreadyScoredP2[7] = True
                                 playerTwoLower = playerTwoLower + playerTwoScores[7]
                                 playerTwoTotal = playerTwoLower + playerTwoUpper
                                 currentPlayerNum = currentPlayerNum - 1
@@ -455,7 +455,7 @@ def main():
                             makeFrequencyList()
                             if ((frequencyList.count(3) == 1) and (frequencyList.count(2) == 1)):
                                 playerTwoScores[8] = 25
-                                alreadyScoredP1[8] = True
+                                alreadyScoredP2[8] = True
                                 playerTwoLower = playerTwoLower + playerTwoScores[8]
                                 playerTwoTotal = playerTwoLower + playerTwoUpper
                                 currentPlayerNum = currentPlayerNum - 1
