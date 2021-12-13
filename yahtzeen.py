@@ -15,12 +15,11 @@ pygame.display.set_caption("YahtzeeN")
 
 #color constants
 GREEN =    (27, 105, 3)
-BLUE =     (0, 0, 255)
 BKGR_RED = (148, 10, 10)
 WHITE =    (255, 255, 255)
 BLACK =    (0, 0, 0)
 
-#temp positions of six dice (to be used for upper section scoring)
+#positions of six dice (to be used for upper section scoring)
 SCORING_ONE = pygame.Rect((width/10), height/2.15, 91, 125)
 SCORING_TWO = pygame.Rect((width/10)+125, height/2.15, 91, 125)
 SCORING_THREE = pygame.Rect((width/10)+250, height/2.15, 91, 125)
@@ -42,6 +41,18 @@ CURR_FIVE = pygame.Rect(390, 120, 80, 80)
 #roll now rect object
 ROLL_NOW = pygame.Rect(310, 10, 182, 60)
 
+#initial die values
+dieOneValue = 0
+dieTwoValue = 0
+dieThreeValue = 0
+dieFourValue = 0
+dieFiveValue = 0
+dieOne_isLocked = False
+dieTwo_isLocked = False
+dieThree_isLocked = False
+dieFour_isLocked = False
+dieFive_isLocked = False
+
 #displays the given picture file when given a filename/path, Rect object for location, and scale factor
 def displayPicture(picture, location, scale):
     image = pygame.image.load(picture).convert_alpha()
@@ -58,19 +69,45 @@ def displayMessage(words, font, fontSize, x, y, color, isUnderlined):
     textBounds.center = (x, y)
     surface.blit(text, textBounds)
 
+def rollDice():
+    global dieOneValue
+    global dieTwoValue
+    global dieThreeValue
+    global dieFourValue
+    global dieFiveValue
+    if (not(dieOne_isLocked)):
+        dieOneValue = random.randrange(1,7)
+    if (not(dieTwo_isLocked)):
+        dieTwoValue = random.randrange(1,7)
+    if (not(dieThree_isLocked)):
+        dieThreeValue = random.randrange(1,7)
+    if (not(dieFour_isLocked)):
+        dieFourValue = random.randrange(1,7)
+    if (not(dieFive_isLocked)):
+        dieFiveValue = random.randrange(1,7)
+
+def displayDieFromNum(dieID, num):
+    if (num == 1):
+        displayPicture("ace.png", dieID, 0.076555)
+    elif (num == 2):
+        displayPicture("two.png", dieID, 0.076555)
+    elif (num == 3):
+        displayPicture("three.png", dieID, 0.076555)
+    elif (num == 4):
+        displayPicture("four.png", dieID, 0.076555)
+    elif (num == 5):
+        displayPicture("five.png", dieID, 0.076555)
+    elif (num == 6):
+        displayPicture("six.png", dieID, 0.076555)
+
 def main():
     #set initial state variables
-    dieOneValue = 0
-    dieTwoValue = 0
-    dieThreeValue = 0
-    dieFourValue = 0
-    dieFiveValue = 0
-    dieOne_isLocked = False
-    dieTwo_isLocked = False
-    dieThree_isLocked = False
-    dieFour_isLocked = False
-    dieFive_isLocked = False
-    currentRollNum = 1 #start at roll 1 of 3
+    global dieOne_isLocked
+    global dieTwo_isLocked
+    global dieThree_isLocked
+    global dieFour_isLocked
+    global dieFive_isLocked
+    currentRollNum = 0 #start at roll 1 of 3
     currentPlayerNum = 1 #set player one as initial player
     playerOneScores = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     playerOneUpper = 0
@@ -88,17 +125,19 @@ def main():
                 sys.exit()
             if (event.type == pygame.MOUSEBUTTONDOWN):
                 if(ROLL_NOW.collidepoint(pygame.mouse.get_pos())):
-                    print("yay")
+                    if (currentRollNum < 3):
+                        rollDice()
+                        currentRollNum = currentRollNum + 1
                 elif(CURR_ONE.collidepoint(pygame.mouse.get_pos())):
-                    print("die A")
+                    dieOne_isLocked = not(dieOne_isLocked)
                 elif(CURR_TWO.collidepoint(pygame.mouse.get_pos())):
-                    print("die B")
+                    dieTwo_isLocked = not(dieTwo_isLocked)
                 elif(CURR_THREE.collidepoint(pygame.mouse.get_pos())):
-                    print("die C")
+                    dieThree_isLocked = not(dieThree_isLocked)
                 elif(CURR_FOUR.collidepoint(pygame.mouse.get_pos())):
-                    print("die D")
+                    dieFour_isLocked = not(dieFour_isLocked)
                 elif(CURR_FIVE.collidepoint(pygame.mouse.get_pos())):
-                    print("die E")
+                    dieFive_isLocked = not(dieFive_isLocked)
                 elif(SCORING_ONE.collidepoint(pygame.mouse.get_pos())):
                     print("aces")
                 elif(SCORING_TWO.collidepoint(pygame.mouse.get_pos())):
@@ -128,12 +167,24 @@ def main():
 
 
 
-
-
         #game logic goes here
+        displayDieFromNum(CURR_ONE, dieOneValue)
+        if (dieOne_isLocked):
+            displayPicture("lock.png", LOCK_ONE, 0.057416)
+        displayDieFromNum(CURR_TWO, dieTwoValue)
+        if (dieTwo_isLocked):
+            displayPicture("lock.png", LOCK_TWO, 0.057416)
+        displayDieFromNum(CURR_THREE, dieThreeValue)
+        if (dieThree_isLocked):
+            displayPicture("lock.png", LOCK_THREE, 0.057416)
+        displayDieFromNum(CURR_FOUR, dieFourValue)
+        if (dieFour_isLocked):
+            displayPicture("lock.png", LOCK_FOUR, 0.057416)
+        displayDieFromNum(CURR_FIVE, dieFiveValue)
+        if (dieFive_isLocked):
+            displayPicture("lock.png", LOCK_FIVE, 0.057416)
         
-        
-
+        pygame.display.update()
 
         #draw UI!
 
@@ -160,19 +211,12 @@ def main():
         pygame.draw.line(surface, BLACK, ((6*width)/7, 525), ((6*width)/7, height), 2) #sixth/seventh lower score section
         pygame.draw.rect(surface, GREEN, ROLL_NOW, 0, 3) #rect is at (310, 10), width 182, height 60px
 
-        #display dice for current roll, need to be 80 pixels each with 10 px between each
-        displayPicture("ace.png", CURR_ONE, 0.076555)
-        displayPicture("two.png", CURR_TWO, 0.076555)
-        displayPicture("three.png", CURR_THREE, 0.076555)
-        displayPicture("four.png", CURR_FOUR, 0.076555)
-        displayPicture("five.png", CURR_FIVE, 0.076555)
-
-        #display die locks
-        displayPicture("lock.png", LOCK_ONE, 0.057416)
-        displayPicture("lock.png", LOCK_TWO, 0.057416)
-        displayPicture("lock.png", LOCK_THREE, 0.057416)
-        displayPicture("lock.png", LOCK_FOUR, 0.057416)
-        displayPicture("lock.png", LOCK_FIVE, 0.057416)
+        # display die locks
+        # displayPicture("lock.png", LOCK_ONE, 0.057416)
+        # displayPicture("lock.png", LOCK_TWO, 0.057416)
+        # displayPicture("lock.png", LOCK_THREE, 0.057416)
+        # displayPicture("lock.png", LOCK_FOUR, 0.057416)
+        # displayPicture("lock.png", LOCK_FIVE, 0.057416)
 
         #display middle dice
         displayPicture("ace.png", SCORING_ONE, 0.087081)
@@ -214,20 +258,48 @@ def main():
         ###NOTE You will need to add a space if the score is a single digit instead of two digits###
 
         #display upper section scores
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+45, height/1.6, WHITE, False) #ace
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+170, height/1.6, WHITE, False) #two
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+295, height/1.6, WHITE, False) #three
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+420, height/1.6, WHITE, False) #four
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+545, height/1.6, WHITE, False) #five
-        displayMessage("???", "Raleway-Light.ttf", 30, (width/10)+670, height/1.6, WHITE, False) #six
+        if (currentPlayerNum == 1):
+            theseAces = playerOneScores[0]
+            theseTwos = playerOneScores[1]
+            theseThrees = playerOneScores[2]
+            theseFours = playerOneScores[3]
+            theseFives = playerOneScores[4]
+            theseSixes = playerOneScores[5]
+            this3Kind = playerOneScores[6]
+            this4Kind = playerOneScores[7]
+            thisFullHouse = playerOneScores[8]
+            thisSmStr = playerOneScores[9]
+            thisLgStr = playerOneScores[10]
+            thisYahtzee = playerOneScores[11]
+            thisChance = playerOneScores[12]
+        elif (currentPlayerNum == 2):
+            theseAces = playerTwoScores[0]
+            theseTwos = playerTwoScores[1]
+            theseThrees = playerTwoScores[2]
+            theseFours = playerTwoScores[3]
+            theseFives = playerTwoScores[4]
+            theseSixes = playerTwoScores[5]
+            this3Kind = playerTwoScores[6]
+            this4Kind = playerTwoScores[7]
+            thisFullHouse = playerTwoScores[8]
+            thisSmStr = playerTwoScores[9]
+            thisLgStr = playerTwoScores[10]
+            thisYahtzee = playerTwoScores[11]
+            thisChance = playerTwoScores[12]
+
+        displayMessage(str(theseAces), "Raleway-Light.ttf", 30, (width/10)+45, height/1.6, WHITE, False) #ace
+        displayMessage(str(theseTwos), "Raleway-Light.ttf", 30, (width/10)+170, height/1.6, WHITE, False) #two
+        displayMessage(str(theseThrees), "Raleway-Light.ttf", 30, (width/10)+295, height/1.6, WHITE, False) #three
+        displayMessage(str(theseFours), "Raleway-Light.ttf", 30, (width/10)+420, height/1.6, WHITE, False) #four
+        displayMessage(str(theseFives), "Raleway-Light.ttf", 30, (width/10)+545, height/1.6, WHITE, False) #five
+        displayMessage(str(theseSixes), "Raleway-Light.ttf", 30, (width/10)+670, height/1.6, WHITE, False) #six
         #display lower section scores
-        displayMessage("???", "Raleway-Light.ttf", 30, (2*width)/28, 580, WHITE, False) #3 of a kind
-        displayMessage("???", "Raleway-Light.ttf", 30, (6*width)/28, 580, WHITE, False) #4 of a kind
-        displayMessage("???", "Raleway-Light.ttf", 30, (10*width)/28, 580, WHITE, False) #full house
-        displayMessage("???", "Raleway-Light.ttf", 30, (14*width)/28, 580, WHITE, False) #small straight
-        displayMessage("???", "Raleway-Light.ttf", 30, (18*width)/28, 580, WHITE, False) #large straight
-        displayMessage("???", "Raleway-Light.ttf", 30, (22*width)/28, 580, WHITE, False) #YAHTZEE!
-        displayMessage("???", "Raleway-Light.ttf", 30, (26*width)/28, 580, WHITE, False) #chance
-        pygame.display.update()
+        displayMessage(str(this3Kind), "Raleway-Light.ttf", 30, (2*width)/28, 580, WHITE, False) #3 of a kind
+        displayMessage(str(this4Kind), "Raleway-Light.ttf", 30, (6*width)/28, 580, WHITE, False) #4 of a kind
+        displayMessage(str(thisFullHouse), "Raleway-Light.ttf", 30, (10*width)/28, 580, WHITE, False) #full house
+        displayMessage(str(thisSmStr), "Raleway-Light.ttf", 30, (14*width)/28, 580, WHITE, False) #small straight
+        displayMessage(str(thisLgStr), "Raleway-Light.ttf", 30, (18*width)/28, 580, WHITE, False) #large straight
+        displayMessage(str(thisYahtzee), "Raleway-Light.ttf", 30, (22*width)/28, 580, WHITE, False) #YAHTZEE!
+        displayMessage(str(thisChance), "Raleway-Light.ttf", 30, (26*width)/28, 580, WHITE, False) #chance
 
 main()
