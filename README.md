@@ -1,15 +1,19 @@
-"Smooch" font is credit Robert Leuschke and is used under the Open Font License provided in `OFL_smooch.txt` in this repository
-
+The "Smooch" font is credit Robert Leuschke and is used under the Open Font License provided in `OFL_smooch.txt` in this repository.
 "Raleway" family fonts are credit Matt McInerney, Pablo Impallari, Rodrigo Fuenzalida and are used under the Open Font License provided
-in `OFL_raleway.txt`
+in `OFL_raleway.txt` in this repository.
+This project is generally licensed under the MIT License provided in LICENSE.md.
 
-This project is generally licensed under the MIT License provided in LICENSE.md
+System Requirements:
 
 This game requires a screen resolution of 1024x768; the window cannot be scaled/resized.
+To run this program, you must have a 64-bit installation of Python 3, as well an installation of the required `pygame` library (v2.0.0 or greater)
 
-To run this program, you must have a 64-bit installation of Python, as well as install the required `pygame` library
     To install on macOS/Linux/Other Unix-like OSes, type the following terminal command: `python3 -m pip install --user pipenv`
+
     To install on Windows, type the following into the command prompt `py -m pip install --user pipenv`
+
+How to Play: The gameplay is the same as regular Yahtzee, but there is no possibility of an Upper Section Bonus or Yahtzee Bonus.
+You can click on a die in your current set to lock it for the next roll. The game will automatically switch between Player 1 and Player 2. To attempt a move, click on the applicable upper section die, or click anywhere inside the applicable lower section box. If the move applies to your set of dice, you will receive those points. Otherwise, you will receive a zero and cannot try again.
 
 Any questions?
     Contact John Reiland at jreiland1@pride.hofstra.edu

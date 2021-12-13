@@ -131,6 +131,20 @@ def unlockDice():
     dieFour_isLocked = False
     dieFive_isLocked = False
 
+def clearDice():
+    global dieOneValue
+    global dieTwoValue
+    global dieThreeValue
+    global dieFourValue
+    global dieFiveValue
+
+    dieOneValue = 0
+    dieTwoValue = 0
+    dieThreeValue = 0
+    dieFourValue = 0
+    dieFiveValue = 0
+
+
 def main():
     #set initial state variables
     global dieOne_isLocked
@@ -139,6 +153,11 @@ def main():
     global dieFour_isLocked
     global dieFive_isLocked
     global frequencyList
+    global dieOneValue
+    global dieTwoValue
+    global dieThreeValue
+    global dieFourValue
+    global dieFiveValue
     currentRollNum = 0 #start at roll 1 of 3
     currentPlayerNum = 1 #set player one as initial player
     playerOneScores = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -184,6 +203,7 @@ def main():
                             currentPlayerNum = currentPlayerNum + 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[0] == False):
                             makeFrequencyList()
@@ -194,6 +214,7 @@ def main():
                             currentPlayerNum = currentPlayerNum - 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                 elif(SCORING_TWO.collidepoint(pygame.mouse.get_pos())):
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[1] == False):
@@ -205,6 +226,7 @@ def main():
                             currentPlayerNum = currentPlayerNum + 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[1] == False):
                             makeFrequencyList()
@@ -215,6 +237,7 @@ def main():
                             currentPlayerNum = currentPlayerNum - 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                 elif(SCORING_THREE.collidepoint(pygame.mouse.get_pos())):
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[2] == False):
@@ -226,6 +249,7 @@ def main():
                             currentPlayerNum = currentPlayerNum + 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[2] == False):
                             makeFrequencyList()
@@ -236,6 +260,7 @@ def main():
                             currentPlayerNum = currentPlayerNum - 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                 elif(SCORING_FOUR.collidepoint(pygame.mouse.get_pos())):
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[3] == False):
@@ -247,6 +272,7 @@ def main():
                             currentPlayerNum = currentPlayerNum + 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[3] == False):
                             makeFrequencyList()
@@ -257,6 +283,7 @@ def main():
                             currentPlayerNum = currentPlayerNum - 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                 elif(SCORING_FIVE.collidepoint(pygame.mouse.get_pos())):
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[4] == False):
@@ -268,6 +295,7 @@ def main():
                             currentPlayerNum = currentPlayerNum + 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[4] == False):
                             makeFrequencyList()
@@ -278,6 +306,7 @@ def main():
                             currentPlayerNum = currentPlayerNum - 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                 elif(SCORING_SIX.collidepoint(pygame.mouse.get_pos())):
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[5] == False):
@@ -289,6 +318,7 @@ def main():
                             currentPlayerNum = currentPlayerNum + 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[5] == False):
                             makeFrequencyList()
@@ -299,6 +329,7 @@ def main():
                             currentPlayerNum = currentPlayerNum - 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                 elif(pygame.Rect(0, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
                     print("3k")
                 elif(pygame.Rect(width/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
@@ -311,6 +342,7 @@ def main():
                     print("lgstr")
                 elif(pygame.Rect((5*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
                     print("yhtz")
+                    
                 elif(pygame.Rect((6*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[12] == False):
@@ -321,6 +353,7 @@ def main():
                             currentPlayerNum = currentPlayerNum + 1
                             currentRollNum = 0
                             unlockDice()
+                            clearDice()
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[12] == False):
                             playerTwoScores[12] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
@@ -330,7 +363,7 @@ def main():
                             currentPlayerNum = currentPlayerNum - 1
                             currentRollNum = 0
                             unlockDice()
-
+                            clearDice()
 
         #draw current roll state
         displayDieFromNum(CURR_ONE, dieOneValue)
@@ -401,9 +434,14 @@ def main():
         displayMessage("Upper Section", "Raleway-Light.ttf", 40, width/2, height/2.7, WHITE, True)
         displayMessage("Lower Section", "Raleway-Light.ttf", 40, width/2, 2.12*(700/3), WHITE, True)
         #display "upper section score" and "lower section score"
-        displayMessage("Upper Section Score: XXX", "Raleway-SemiBold.ttf", 32, 700, 85, WHITE, False)
-        displayMessage("Lower Section Score: XXX", "Raleway-SemiBold.ttf", 32, 700, 143, WHITE, False)
-        displayMessage("Total Score: XXX", "Raleway-SemiBold.ttf", 32, 631, 201, WHITE, False)
+        if (currentPlayerNum == 1):
+            displayMessage("Upper Section Score: " + str(playerOneUpper), "Raleway-SemiBold.ttf", 32, 700, 85, WHITE, False)
+            displayMessage("Lower Section Score: " + str(playerOneLower), "Raleway-SemiBold.ttf", 32, 700, 143, WHITE, False)
+            displayMessage("Total Score: " + str(playerOneTotal), "Raleway-SemiBold.ttf", 32, 631, 201, WHITE, False)
+        elif (currentPlayerNum == 2):
+            displayMessage("Upper Section Score: " + str(playerTwoUpper), "Raleway-SemiBold.ttf", 32, 700, 85, WHITE, False)
+            displayMessage("Lower Section Score: " + str(playerTwoLower), "Raleway-SemiBold.ttf", 32, 700, 143, WHITE, False)
+            displayMessage("Total Score: " + str(playerTwoTotal), "Raleway-SemiBold.ttf", 32, 631, 201, WHITE, False)
         #display each lower section category name
         displayMessage("3 of a Kind", "Smooch-Regular.ttf", 27, width/14, 542, WHITE, False)
         displayMessage("4 of a Kind", "Smooch-Regular.ttf", 27, (3*width)/14, 542, WHITE, False)
