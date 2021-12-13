@@ -52,6 +52,7 @@ dieTwo_isLocked = False
 dieThree_isLocked = False
 dieFour_isLocked = False
 dieFive_isLocked = False
+frequencyList = [0, 0, 0, 0, 0, 0]
 
 #displays the given picture file when given a filename/path, Rect object for location, and scale factor
 def displayPicture(picture, location, scale):
@@ -100,6 +101,27 @@ def displayDieFromNum(dieID, num):
     elif (num == 6):
         displayPicture("six.png", dieID, 0.076555)
 
+def makeFrequencyList():
+    global frequencyList
+    global dieOneValue
+    global dieTwoValue
+    global dieThreeValue
+    global dieFourValue
+    global dieFiveValue
+
+def unlockDice():
+    global dieOne_isLocked
+    global dieTwo_isLocked
+    global dieThree_isLocked
+    global dieFour_isLocked
+    global dieFive_isLocked
+
+    dieOne_isLocked = False
+    dieTwo_isLocked = False
+    dieThree_isLocked = False
+    dieFour_isLocked = False
+    dieFive_isLocked = False
+
 def main():
     #set initial state variables
     global dieOne_isLocked
@@ -107,6 +129,7 @@ def main():
     global dieThree_isLocked
     global dieFour_isLocked
     global dieFive_isLocked
+    global frequencyList
     currentRollNum = 0 #start at roll 1 of 3
     currentPlayerNum = 1 #set player one as initial player
     playerOneScores = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -117,7 +140,6 @@ def main():
     playerTwoUpper = 0
     playerTwoLower = 0
     playerTwoTotal = 0
-    rollFrequency = [0, 0, 0, 0, 0]
     alreadyScoredP1 = [False, False, False, False, False, False, False, False, False, False, False, False]
     alreadyScoredP2 = [False, False, False, False, False, False, False, False, False, False, False, False]
 
@@ -171,14 +193,23 @@ def main():
                         if (alreadyScoredP1[12] == False):
                             playerOneScores[12] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
                             alreadyScoredP1[12] = True
+                            playerOneLower = playerOneLower + playerOneScores[12]
+                            playerOneTotal = playerOneLower + playerOneUpper
+                            currentPlayerNum = currentPlayerNum + 1
+                            currentRollNum = 0
+                            unlockDice()
                     elif (currentPlayerNum == 2):
                         if (alreadyScoredP2[12] == False):
                             playerTwoScores[12] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
                             alreadyScoredP2[12] = True
+                            playerTwoLower = playerTwoLower + playerTwoScores[12]
+                            playerTwoTotal = playerTwoLower + playerTwoUpper
+                            currentPlayerNum = currentPlayerNum - 1
+                            currentRollNum = 0
+                            unlockDice()
 
 
-
-        #game logic goes here
+        #draw current roll state
         displayDieFromNum(CURR_ONE, dieOneValue)
         if (dieOne_isLocked):
             displayPicture("lock.png", LOCK_ONE, 0.057416)
@@ -197,7 +228,7 @@ def main():
         
         pygame.display.update()
 
-        #draw UI!
+        #draw "general" UI elements
 
         surface.fill(BKGR_RED)
 
@@ -221,13 +252,6 @@ def main():
         pygame.draw.line(surface, BLACK, ((5*width)/7, 525), ((5*width)/7, height), 2) #fifth/sixth lower score section
         pygame.draw.line(surface, BLACK, ((6*width)/7, 525), ((6*width)/7, height), 2) #sixth/seventh lower score section
         pygame.draw.rect(surface, GREEN, ROLL_NOW, 0, 3) #rect is at (310, 10), width 182, height 60px
-
-        # display die locks
-        # displayPicture("lock.png", LOCK_ONE, 0.057416)
-        # displayPicture("lock.png", LOCK_TWO, 0.057416)
-        # displayPicture("lock.png", LOCK_THREE, 0.057416)
-        # displayPicture("lock.png", LOCK_FOUR, 0.057416)
-        # displayPicture("lock.png", LOCK_FIVE, 0.057416)
 
         #display middle dice
         displayPicture("ace.png", SCORING_ONE, 0.087081)
@@ -266,9 +290,7 @@ def main():
         displayMessage("Yahtzee!", "Smooch-Regular.ttf", 27, (11*width)/14, 542, WHITE, False)
         displayMessage("Chance", "Smooch-Regular.ttf", 27, (13*width)/14, 542, WHITE, False)
 
-        ###NOTE You will need to add a space if the score is a single digit instead of two digits###
-
-        #display upper section scores
+        #prepare to display scores
         if (currentPlayerNum == 1):
             theseAces = playerOneScores[0]
             theseTwos = playerOneScores[1]
@@ -298,6 +320,7 @@ def main():
             thisYahtzee = playerTwoScores[11]
             thisChance = playerTwoScores[12]
 
+        #display upper section scores
         displayMessage(str(theseAces), "Raleway-Light.ttf", 30, (width/10)+45, height/1.6, WHITE, False) #ace
         displayMessage(str(theseTwos), "Raleway-Light.ttf", 30, (width/10)+170, height/1.6, WHITE, False) #two
         displayMessage(str(theseThrees), "Raleway-Light.ttf", 30, (width/10)+295, height/1.6, WHITE, False) #three
