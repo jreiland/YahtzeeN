@@ -551,8 +551,8 @@ def main():
                         if (alreadyScoredP2[10] == False):
                             if (validLgStr):
                                 playerTwoScores[10] = 40
-                                alreadyScoredP2[40] = True
-                                playerTwoLower = playerTwoLower + playerTwoScores[40]
+                                alreadyScoredP2[10] = True
+                                playerTwoLower = playerTwoLower + playerTwoScores[10]
                                 playerTwoTotal = playerTwoLower + playerTwoUpper
                                 currentPlayerNum = currentPlayerNum - 1
                                 currentRollNum = 0
