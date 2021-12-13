@@ -117,7 +117,11 @@ def main():
     playerTwoUpper = 0
     playerTwoLower = 0
     playerTwoTotal = 0
+    rollFrequency = [0, 0, 0, 0, 0]
+    alreadyScoredP1 = [False, False, False, False, False, False, False, False, False, False, False, False]
+    alreadyScoredP2 = [False, False, False, False, False, False, False, False, False, False, False, False]
 
+ 
     while (True):
         for event in pygame.event.get():
             if (event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)):
@@ -163,7 +167,14 @@ def main():
                 elif(pygame.Rect((5*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
                     print("yhtz")
                 elif(pygame.Rect((6*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
-                    print("chance")
+                    if (currentPlayerNum == 1):
+                        if (alreadyScoredP1[12] == False):
+                            playerOneScores[12] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
+                            alreadyScoredP1[12] = True
+                    elif (currentPlayerNum == 2):
+                        if (alreadyScoredP2[12] == False):
+                            playerTwoScores[12] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
+                            alreadyScoredP2[12] = True
 
 
 
