@@ -38,7 +38,7 @@ CURR_TWO = pygame.Rect(120, 120, 80, 80)
 CURR_THREE = pygame.Rect(210, 120, 80, 80)
 CURR_FOUR = pygame.Rect(300, 120, 80, 80)
 CURR_FIVE = pygame.Rect(390, 120, 80, 80)
-#roll now rect object
+#roll now button rect object
 ROLL_NOW = pygame.Rect(310, 10, 182, 60)
 
 #initial die values
@@ -101,6 +101,8 @@ def displayDieFromNum(dieID, num):
     elif (num == 6):
         displayPicture("six.png", dieID, 0.076555)
 
+#CAUTION: this function only creates a list valid for the time it is called
+#any roll can change this frequency list
 def makeFrequencyList():
     global frequencyList
     global dieOneValue
@@ -108,6 +110,13 @@ def makeFrequencyList():
     global dieThreeValue
     global dieFourValue
     global dieFiveValue
+    for i in range(0, len(frequencyList)):
+        frequencyList[i] = 0
+    frequencyList[dieOneValue - 1] = frequencyList[dieOneValue - 1] + 1
+    frequencyList[dieTwoValue - 1] = frequencyList[dieTwoValue - 1] + 1
+    frequencyList[dieThreeValue - 1] = frequencyList[dieThreeValue - 1] + 1
+    frequencyList[dieFourValue - 1] = frequencyList[dieFourValue - 1] + 1
+    frequencyList[dieFiveValue - 1] = frequencyList[dieFiveValue - 1] + 1
 
 def unlockDice():
     global dieOne_isLocked
@@ -165,17 +174,131 @@ def main():
                 elif(CURR_FIVE.collidepoint(pygame.mouse.get_pos())):
                     dieFive_isLocked = not(dieFive_isLocked)
                 elif(SCORING_ONE.collidepoint(pygame.mouse.get_pos())):
-                    print("aces")
+                    if (currentPlayerNum == 1):
+                        if (alreadyScoredP1[0] == False):
+                            makeFrequencyList()
+                            playerOneScores[0] = frequencyList[0]
+                            alreadyScoredP1[0] = True
+                            playerOneLower = playerOneLower + playerOneScores[0]
+                            playerOneTotal = playerOneLower + playerOneUpper
+                            currentPlayerNum = currentPlayerNum + 1
+                            currentRollNum = 0
+                            unlockDice()
+                    elif (currentPlayerNum == 2):
+                        if (alreadyScoredP2[0] == False):
+                            makeFrequencyList()
+                            playerTwoScores[0] = frequencyList[0]
+                            alreadyScoredP2[0] = True
+                            playerTwoLower = playerTwoLower + playerTwoScores[0]
+                            playerTwoTotal = playerTwoLower + playerTwoUpper
+                            currentPlayerNum = currentPlayerNum - 1
+                            currentRollNum = 0
+                            unlockDice()
                 elif(SCORING_TWO.collidepoint(pygame.mouse.get_pos())):
-                    print("twos")
+                    if (currentPlayerNum == 1):
+                        if (alreadyScoredP1[1] == False):
+                            makeFrequencyList()
+                            playerOneScores[1] = frequencyList[1]
+                            alreadyScoredP1[1] = True
+                            playerOneLower = playerOneLower + playerOneScores[1]
+                            playerOneTotal = playerOneLower + playerOneUpper
+                            currentPlayerNum = currentPlayerNum + 1
+                            currentRollNum = 0
+                            unlockDice()
+                    elif (currentPlayerNum == 2):
+                        if (alreadyScoredP2[1] == False):
+                            makeFrequencyList()
+                            playerTwoScores[1] = frequencyList[1]
+                            alreadyScoredP2[1] = True
+                            playerTwoLower = playerTwoLower + playerTwoScores[1]
+                            playerTwoTotal = playerTwoLower + playerTwoUpper
+                            currentPlayerNum = currentPlayerNum - 1
+                            currentRollNum = 0
+                            unlockDice()
                 elif(SCORING_THREE.collidepoint(pygame.mouse.get_pos())):
-                    print("threes")
+                    if (currentPlayerNum == 1):
+                        if (alreadyScoredP1[2] == False):
+                            makeFrequencyList()
+                            playerOneScores[2] = frequencyList[2]
+                            alreadyScoredP1[2] = True
+                            playerOneLower = playerOneLower + playerOneScores[2]
+                            playerOneTotal = playerOneLower + playerOneUpper
+                            currentPlayerNum = currentPlayerNum + 1
+                            currentRollNum = 0
+                            unlockDice()
+                    elif (currentPlayerNum == 2):
+                        if (alreadyScoredP2[2] == False):
+                            makeFrequencyList()
+                            playerTwoScores[2] = frequencyList[2]
+                            alreadyScoredP2[2] = True
+                            playerTwoLower = playerTwoLower + playerTwoScores[2]
+                            playerTwoTotal = playerTwoLower + playerTwoUpper
+                            currentPlayerNum = currentPlayerNum - 1
+                            currentRollNum = 0
+                            unlockDice()
                 elif(SCORING_FOUR.collidepoint(pygame.mouse.get_pos())):
-                    print("fours")
+                    if (currentPlayerNum == 1):
+                        if (alreadyScoredP1[3] == False):
+                            makeFrequencyList()
+                            playerOneScores[3] = frequencyList[3]
+                            alreadyScoredP1[3] = True
+                            playerOneLower = playerOneLower + playerOneScores[3]
+                            playerOneTotal = playerOneLower + playerOneUpper
+                            currentPlayerNum = currentPlayerNum + 1
+                            currentRollNum = 0
+                            unlockDice()
+                    elif (currentPlayerNum == 2):
+                        if (alreadyScoredP2[3] == False):
+                            makeFrequencyList()
+                            playerTwoScores[3] = frequencyList[3]
+                            alreadyScoredP2[3] = True
+                            playerTwoLower = playerTwoLower + playerTwoScores[3]
+                            playerTwoTotal = playerTwoLower + playerTwoUpper
+                            currentPlayerNum = currentPlayerNum - 1
+                            currentRollNum = 0
+                            unlockDice()
                 elif(SCORING_FIVE.collidepoint(pygame.mouse.get_pos())):
-                    print("fives")
+                    if (currentPlayerNum == 1):
+                        if (alreadyScoredP1[4] == False):
+                            makeFrequencyList()
+                            playerOneScores[4] = frequencyList[4]
+                            alreadyScoredP1[4] = True
+                            playerOneLower = playerOneLower + playerOneScores[4]
+                            playerOneTotal = playerOneLower + playerOneUpper
+                            currentPlayerNum = currentPlayerNum + 1
+                            currentRollNum = 0
+                            unlockDice()
+                    elif (currentPlayerNum == 2):
+                        if (alreadyScoredP2[4] == False):
+                            makeFrequencyList()
+                            playerTwoScores[4] = frequencyList[4]
+                            alreadyScoredP2[4] = True
+                            playerTwoLower = playerTwoLower + playerTwoScores[4]
+                            playerTwoTotal = playerTwoLower + playerTwoUpper
+                            currentPlayerNum = currentPlayerNum - 1
+                            currentRollNum = 0
+                            unlockDice()
                 elif(SCORING_SIX.collidepoint(pygame.mouse.get_pos())):
-                    print("sixes")
+                    if (currentPlayerNum == 1):
+                        if (alreadyScoredP1[5] == False):
+                            makeFrequencyList()
+                            playerOneScores[5] = frequencyList[5]
+                            alreadyScoredP1[5] = True
+                            playerOneLower = playerOneLower + playerOneScores[5]
+                            playerOneTotal = playerOneLower + playerOneUpper
+                            currentPlayerNum = currentPlayerNum + 1
+                            currentRollNum = 0
+                            unlockDice()
+                    elif (currentPlayerNum == 2):
+                        if (alreadyScoredP2[5] == False):
+                            makeFrequencyList()
+                            playerTwoScores[5] = frequencyList[5]
+                            alreadyScoredP2[5] = True
+                            playerTwoLower = playerTwoLower + playerTwoScores[5]
+                            playerTwoTotal = playerTwoLower + playerTwoUpper
+                            currentPlayerNum = currentPlayerNum - 1
+                            currentRollNum = 0
+                            unlockDice()
                 elif(pygame.Rect(0, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
                     print("3k")
                 elif(pygame.Rect(width/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())):
