@@ -12,7 +12,6 @@ surface = pygame.display.set_mode(size)
 
 #set title bar of window
 pygame.display.set_caption("YahtzeeN")
-
 #color constants
 GREEN =    (27, 105, 3)
 BKGR_RED = (148, 10, 10)
@@ -53,6 +52,7 @@ dieThree_isLocked = False
 dieFour_isLocked = False
 dieFive_isLocked = False
 frequencyList = [0, 0, 0, 0, 0, 0]
+tempcount = 0
 
 #displays the given picture file when given a filename/path, Rect object for location, and scale factor
 def displayPicture(picture, location, scale):
@@ -104,6 +104,7 @@ def displayDieFromNum(dieID, num):
 
 #CAUTION: this function only creates a list valid for the time it is called
 #any roll can change this frequency list
+#the list is the frequency of each value, represented for (index + 1) in a roll
 def makeFrequencyList():
     global frequencyList
     global dieOneValue
@@ -111,13 +112,13 @@ def makeFrequencyList():
     global dieThreeValue
     global dieFourValue
     global dieFiveValue
+    global tempcount
     for i in range(0, len(frequencyList)):
         frequencyList[i] = 0
-    frequencyList[dieOneValue - 1] = frequencyList[dieOneValue - 1] + 1
-    frequencyList[dieTwoValue - 1] = frequencyList[dieTwoValue - 1] + 1
-    frequencyList[dieThreeValue - 1] = frequencyList[dieThreeValue - 1] + 1
-    frequencyList[dieFourValue - 1] = frequencyList[dieFourValue - 1] + 1
-    frequencyList[dieFiveValue - 1] = frequencyList[dieFiveValue - 1] + 1
+    tempArray = [dieOneValue, dieTwoValue, dieThreeValue, dieFourValue, dieFiveValue]
+    for j in range(0, 6):
+        if (tempArray.count(j + 1) > 0):
+            frequencyList[j] = tempArray.count(j + 1)
 
 #unlocks all dice for next player
 def unlockDice():
@@ -147,6 +148,25 @@ def clearDice():
     dieFourValue = 0
     dieFiveValue = 0
 
+def finishGame(p1Score, p2Score):
+    while (True):
+        for event in pygame.event.get():
+            if (event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)):
+                pygame.quit()
+                sys.exit()
+        #display final scores and win messages
+        surface.fill(BKGR_RED)
+        displayMessage("Game Over!", "Smooch-Regular.ttf", 100, width/2, height/6, WHITE, False)
+        displayMessage("Player 1's Score........." + str(p1Score), "Raleway-SemiBold.ttf", 60, width/2, (2*height)/6, WHITE, False)
+        displayMessage("Player 2's Score........." + str(p2Score), "Raleway-SemiBold.ttf", 60, width/2, (3*height)/6, WHITE, False)
+        if (p1Score > p2Score):
+            displayMessage("Player 1 wins by " + str(p1Score - p2Score) + " points!", "Raleway-SemiBold.ttf", 60, width/2, (4*height)/5, WHITE, False)
+        elif (p2Score > p1Score):
+            displayMessage("Player 2 wins by " + str(p2Score - p1Score) + " points!", "Raleway-SemiBold.ttf", 60, width/2, (4*height)/5, WHITE, False)
+        else:
+            displayMessage("It's a tie!", "Raleway-SemiBold.ttf", 60, width/2, (4*height)/5, WHITE, False)
+        pygame.display.update()
+
 
 def main():
     #set initial state variables
@@ -171,20 +191,20 @@ def main():
     playerTwoUpper = 0
     playerTwoLower = 0
     playerTwoTotal = 0
-    alreadyScoredP1 = [False, False, False, False, False, False, False, False, False, False, False, False]
-    alreadyScoredP2 = [False, False, False, False, False, False, False, False, False, False, False, False]
+    alreadyScoredP1 = [False, False, False, False, False, False, False, False, False, False, False, False, False]
+    alreadyScoredP2 = [False, False, False, False, False, False, False, False, False, False, False, False, False]
  
     while (True):
         for event in pygame.event.get():
-            if (event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)):
+            if (event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)): #quit game
                 pygame.quit()
                 sys.exit()
-            if (event.type == pygame.MOUSEBUTTONDOWN):
+            if (event.type == pygame.MOUSEBUTTONDOWN): #mouse click events
                 if(ROLL_NOW.collidepoint(pygame.mouse.get_pos())):
                     if (currentRollNum < 3):
                         rollDice()
                         currentRollNum = currentRollNum + 1
-                elif(CURR_ONE.collidepoint(pygame.mouse.get_pos())):
+                elif(CURR_ONE.collidepoint(pygame.mouse.get_pos())): #clicked leftmost rolled die
                     dieOne_isLocked = not(dieOne_isLocked)
                 elif(CURR_TWO.collidepoint(pygame.mouse.get_pos())):
                     dieTwo_isLocked = not(dieTwo_isLocked)
@@ -192,9 +212,9 @@ def main():
                     dieThree_isLocked = not(dieThree_isLocked)
                 elif(CURR_FOUR.collidepoint(pygame.mouse.get_pos())):
                     dieFour_isLocked = not(dieFour_isLocked)
-                elif(CURR_FIVE.collidepoint(pygame.mouse.get_pos())):
+                elif(CURR_FIVE.collidepoint(pygame.mouse.get_pos())): #clicked rightmost rolled die
                     dieFive_isLocked = not(dieFive_isLocked)
-                elif(SCORING_ONE.collidepoint(pygame.mouse.get_pos())):
+                elif(SCORING_ONE.collidepoint(pygame.mouse.get_pos())): #score for aces
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[0] == False):
                             makeFrequencyList()
@@ -217,7 +237,7 @@ def main():
                             currentRollNum = 0
                             unlockDice()
                             clearDice()
-                elif(SCORING_TWO.collidepoint(pygame.mouse.get_pos())):
+                elif(SCORING_TWO.collidepoint(pygame.mouse.get_pos())): #score for twos
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[1] == False):
                             makeFrequencyList()
@@ -240,7 +260,7 @@ def main():
                             currentRollNum = 0
                             unlockDice()
                             clearDice()
-                elif(SCORING_THREE.collidepoint(pygame.mouse.get_pos())):
+                elif(SCORING_THREE.collidepoint(pygame.mouse.get_pos())): #score for threes
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[2] == False):
                             makeFrequencyList()
@@ -263,7 +283,7 @@ def main():
                             currentRollNum = 0
                             unlockDice()
                             clearDice()
-                elif(SCORING_FOUR.collidepoint(pygame.mouse.get_pos())):
+                elif(SCORING_FOUR.collidepoint(pygame.mouse.get_pos())): #score for fours
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[3] == False):
                             makeFrequencyList()
@@ -286,7 +306,7 @@ def main():
                             currentRollNum = 0
                             unlockDice()
                             clearDice()
-                elif(SCORING_FIVE.collidepoint(pygame.mouse.get_pos())):
+                elif(SCORING_FIVE.collidepoint(pygame.mouse.get_pos())): #score for fives
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[4] == False):
                             makeFrequencyList()
@@ -309,7 +329,7 @@ def main():
                             currentRollNum = 0
                             unlockDice()
                             clearDice()
-                elif(SCORING_SIX.collidepoint(pygame.mouse.get_pos())):
+                elif(SCORING_SIX.collidepoint(pygame.mouse.get_pos())): #score for sixes
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[5] == False):
                             makeFrequencyList()
@@ -450,27 +470,19 @@ def main():
                                 unlockDice()
                                 clearDice()
                 elif(pygame.Rect((3*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #small straight
+                    #check if we have small straight
                     tempList = [dieOneValue, dieTwoValue, dieThreeValue, dieFourValue, dieFiveValue]
-                    print(str(tempList))
                     smStrOne = [1, 2, 3, 4]
                     smStrTwo = [2, 3, 4, 5]
                     smStrThree = [3, 4, 5, 6]
-                    #algorithm for checking subarray from: https://www.geeksforgeeks.org/python-check-for-sublist-in-list/
+                    #algorithm for checking subarray from: https://thispointer.com/python-check-if-a-list-contains-all-the-elements-of-another-list/
                     validSmStr = False
-                    for indexA in range(len(tempList) - len(smStrOne) + 1):
-                        if tempList[indexA : indexA + len(smStrOne)] == smStrOne:
-                            validSmStr = True 
-                            break
+                    validSmStr = all(elem in tempList for elem in smStrOne)
                     if (not(validSmStr)):
-                        for indexB in range(len(tempList) - len(smStrTwo) + 1):
-                            if tempList[indexB : indexB + len(smStrTwo)] == smStrTwo:
-                                validSmStr = True 
-                                break
+                        validSmStr = all(elem in tempList for elem in smStrTwo)
+                    
                     if (not(validSmStr)):
-                        for indexC in range(len(tempList) - len(smStrThree) + 1):
-                            if tempList[indexC : indexC + len(smStrThree)] == smStrThree:
-                                validSmStr = True 
-                                break
+                        validSmStr = all(elem in tempList for elem in smStrThree)
                     
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[9] == False):
@@ -508,20 +520,15 @@ def main():
                                 clearDice()
                     
                 elif(pygame.Rect((4*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #large straight
+                    #check if valid large straight
                     tempList = [dieOneValue, dieTwoValue, dieThreeValue, dieFourValue, dieFiveValue]
                     lgStrOne = [1, 2, 3, 4, 5]
                     lgStrTwo = [2, 3, 4, 5, 6]
-                    #algorithm for checking subarray from: https://www.geeksforgeeks.org/python-check-for-sublist-in-list/
+                    #algorithm for checking subarray from: https://thispointer.com/python-check-if-a-list-contains-all-the-elements-of-another-list/
                     validLgStr = False
-                    for indexD in range(len(tempList) - len(lgStrOne) + 1):
-                        if tempList[indexD : indexD + len(lgStrOne)] == lgStrOne:
-                            validLgStr = True 
-                            break
+                    validLgStr = all(elem in tempList for elem in lgStrOne)
                     if (not(validLgStr)):
-                        for indexD in range(len(tempList) - len(lgStrTwo) + 1):
-                            if tempList[indexD : indexD + len(lgStrTwo)] == lgStrTwo:
-                                validLgStr = True 
-                                break
+                        validLgStr = all(elem in tempList for elem in lgStrTwo)
 
                     if (currentPlayerNum == 1):
                         if (alreadyScoredP1[10] == False):
@@ -583,7 +590,7 @@ def main():
                             makeFrequencyList()
                             if (frequencyList.count(5) == 1):
                                 playerTwoScores[11] = 50
-                                alreadyScoredP1[11] = True
+                                alreadyScoredP2[11] = True
                                 playerTwoLower = playerTwoLower + playerTwoScores[11]
                                 playerTwoTotal = playerTwoLower + playerTwoUpper
                                 currentPlayerNum = currentPlayerNum - 1
@@ -750,5 +757,10 @@ def main():
         displayMessage(str(thisLgStr), "Raleway-Light.ttf", 30, (18*width)/28, 580, WHITE, False) #large straight
         displayMessage(str(thisYahtzee), "Raleway-Light.ttf", 30, (22*width)/28, 580, WHITE, False) #YAHTZEE!
         displayMessage(str(thisChance), "Raleway-Light.ttf", 30, (26*width)/28, 580, WHITE, False) #chance
+
+        #if all moves have been made, display results; game must be restarted to play again
+        if (alreadyScoredP1.count(True) == 13 and alreadyScoredP2.count(True) == 13):
+            finishGame(playerOneTotal, playerTwoTotal)
+            break
 
 main()
