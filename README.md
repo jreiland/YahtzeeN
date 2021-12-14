@@ -13,12 +13,11 @@ To install on macOS/Linux/Other Unix-like OSes, type the following terminal comm
 
 To install on Windows, type the following into the command prompt `py -m pip install --user pipenv`
 
-    WARNING: This gave has not been tested on platforms other than macOS!!!
+    WARNING: This game has not been tested on platforms other than macOS!!!
 
 The game will look somewhat odd if you do not download the font files in this repository.
 
-__How to Play:__ The gameplay is the same as regular Yahtzee, but there is no possibility of an Upper Section Bonus or Yahtzee Bonus.
-You can click on a die in your current set to lock it for the next roll. The game will automatically switch between Player 1 and Player 2. To attempt a move, click on the applicable upper section die, or click anywhere inside the applicable lower section box. If the move applies to your set of dice, you will receive those points. Otherwise, you will receive a zero and cannot try again.
+__How to Play/Run the Game:__ Run `yahtzeen.py` to play the game. The gameplay is the same as regular Yahtzee, but there is no possibility of an Upper Section Bonus or Yahtzee Bonus. You can click on a die in your current set to lock it for the next roll. The game will automatically switch between Player 1 and Player 2. To attempt a move, click on the applicable upper section die, or click anywhere inside the applicable lower section box. If the move applies to your set of dice, you will receive those points. Otherwise, you will receive a zero and cannot try again.
 
 __Known Issues:__ 
  - The "Upper Section Score," "Lower Section Score," and "Total Score" text will move depending on the number of digits that comprise the score.
