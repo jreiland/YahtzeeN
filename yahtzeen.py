@@ -42,16 +42,8 @@ CURR_FIVE = pygame.Rect(390, 120, 80, 80)
 ROLL_NOW = pygame.Rect(310, 10, 182, 60)
 
 #initial die values
-dieOneValue = 0
-dieTwoValue = 0
-dieThreeValue = 0
-dieFourValue = 0
-dieFiveValue = 0
-dieOne_isLocked = False
-dieTwo_isLocked = False
-dieThree_isLocked = False
-dieFour_isLocked = False
-dieFive_isLocked = False
+dieValues = [0, 0, 0, 0, 0]
+diceLockedList = [False, False, False, False, False]
 frequencyList = [0, 0, 0, 0, 0, 0]
 
 #displays the given picture file when given a filename/path, Rect object for location, and scale factor
@@ -71,21 +63,18 @@ def displayMessage(words, font, fontSize, x, y, color, isUnderlined):
     surface.blit(text, textBounds)
 
 def rollDice():
-    global dieOneValue
-    global dieTwoValue
-    global dieThreeValue
-    global dieFourValue
-    global dieFiveValue
-    if (not(dieOne_isLocked)):
-        dieOneValue = random.randrange(1,7)
-    if (not(dieTwo_isLocked)):
-        dieTwoValue = random.randrange(1,7)
-    if (not(dieThree_isLocked)):
-        dieThreeValue = random.randrange(1,7)
-    if (not(dieFour_isLocked)):
-        dieFourValue = random.randrange(1,7)
-    if (not(dieFive_isLocked)):
-        dieFiveValue = random.randrange(1,7)
+    global dieValues
+
+    if (not(diceLockedList[0])):
+        dieValues[0] = random.randrange(1,7)
+    if (not(diceLockedList[1])):
+        dieValues[1] = random.randrange(1,7)
+    if (not(diceLockedList[2])):
+        dieValues[2] = random.randrange(1,7)
+    if (not(diceLockedList[3])):
+        dieValues[3] = random.randrange(1,7)
+    if (not(diceLockedList[4])):
+        dieValues[4] = random.randrange(1,7)
 
 #displays the die at the given position (dieID) and for given number in current roll area
 def displayDieFromNum(dieID, num):
@@ -107,18 +96,13 @@ def displayDieFromNum(dieID, num):
 #the list is the frequency of each value, represented for (index + 1) in a roll
 def makeFrequencyList():
     global frequencyList
-    global dieOneValue
-    global dieTwoValue
-    global dieThreeValue
-    global dieFourValue
-    global dieFiveValue
-    global tempcount
+
     for i in range(0, len(frequencyList)):
         frequencyList[i] = 0
-    tempArray = [dieOneValue, dieTwoValue, dieThreeValue, dieFourValue, dieFiveValue]
+
     for j in range(0, 6):
-        if (tempArray.count(j + 1) > 0):
-            frequencyList[j] = tempArray.count(j + 1)
+        if (dieValues.count(j + 1) > 0):
+            frequencyList[j] = dieValues.count(j + 1)
 
 #scores die type of num (1-6) for thisPlayer (should be currentPlayer)
 def scoreUpperSection(thisPlayer, num):
@@ -132,17 +116,13 @@ def scoreUpperSection(thisPlayer, num):
 #scores x of a kind for thisPlayer, where x is num (note: num = 5 = Yahtzee)
 def scoreOfAKind(thisPlayer, num):
     global frequencyList
-    global dieOneValue
-    global dieTwoValue
-    global dieThreeValue
-    global dieFourValue
-    global dieFiveValue
+    global dieValues
     arrayPos = 0 #where to place score
 
     makeFrequencyList()
     if (frequencyList.count(num) == 1):
         if (num == 3 or num == 4):
-            thisPlayer.allScores[num + 3] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
+            thisPlayer.allScores[num + 3] = sum(dieValues)
         elif (num == 5):
             thisPlayer.allScores[11] = 50
         thisPlayer.alreadyScored[arrayPos] = True
@@ -154,27 +134,12 @@ def scoreOfAKind(thisPlayer, num):
 
 #resets value of and unlocks all dice for next player
 def clearDice():
-    global dieOneValue
-    global dieTwoValue
-    global dieThreeValue
-    global dieFourValue
-    global dieFiveValue
-    global dieOne_isLocked
-    global dieTwo_isLocked
-    global dieThree_isLocked
-    global dieFour_isLocked
-    global dieFive_isLocked
+    global dieValues
+    global diceLockedList
 
-    dieOneValue = 0
-    dieTwoValue = 0
-    dieThreeValue = 0
-    dieFourValue = 0
-    dieFiveValue = 0
-    dieOne_isLocked = False
-    dieTwo_isLocked = False
-    dieThree_isLocked = False
-    dieFour_isLocked = False
-    dieFive_isLocked = False
+    dieValues = [0, 0, 0, 0, 0]
+    diceLockedList = [False, False, False, False, False]
+
 
 def finishGame(p1Score, p2Score):
     while (True):
@@ -198,23 +163,15 @@ def finishGame(p1Score, p2Score):
 
 def main():
     #set initial state variables
-    global dieOne_isLocked
-    global dieTwo_isLocked
-    global dieThree_isLocked
-    global dieFour_isLocked
-    global dieFive_isLocked
+    global diceLockedList
+    global dieValues
     global frequencyList
-    global dieOneValue
-    global dieTwoValue
-    global dieThreeValue
-    global dieFourValue
-    global dieFiveValue
     currentRollNum = 0 #start at roll 1 of 3
 
     player1 = Player(1)
     player2 = Player(2)
     currentPlayer = player1
-    
+
     while (True):
         for event in pygame.event.get():
             if (event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)): #quit game
@@ -226,15 +183,15 @@ def main():
                         rollDice()
                         currentRollNum = currentRollNum + 1
                 elif(CURR_ONE.collidepoint(pygame.mouse.get_pos())): #clicked leftmost rolled die
-                    dieOne_isLocked = not(dieOne_isLocked)
+                    diceLockedList[0] = not(diceLockedList[0])
                 elif(CURR_TWO.collidepoint(pygame.mouse.get_pos())):
-                    dieTwo_isLocked = not(dieTwo_isLocked)
+                    diceLockedList[1] = not(diceLockedList[1])
                 elif(CURR_THREE.collidepoint(pygame.mouse.get_pos())):
-                    dieThree_isLocked = not(dieThree_isLocked)
+                    diceLockedList[2] = not(diceLockedList[2])
                 elif(CURR_FOUR.collidepoint(pygame.mouse.get_pos())):
-                    dieFour_isLocked = not(dieFour_isLocked)
+                    diceLockedList[3] = not(diceLockedList[3])
                 elif(CURR_FIVE.collidepoint(pygame.mouse.get_pos())): #clicked rightmost rolled die
-                    dieFive_isLocked = not(dieFive_isLocked)
+                    diceLockedList[4] = not(diceLockedList[4])
                 elif(SCORING_ONE.collidepoint(pygame.mouse.get_pos())): #score for aces
                     if (currentPlayer.alreadyScored[0] == False):
                         scoreUpperSection(currentPlayer, 1)
@@ -306,7 +263,6 @@ def main():
 
                         currentRollNum = 0
                         clearDice()
-
                 elif(pygame.Rect(width/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #four of a kind
                     if (currentPlayer.alreadyScored[7] == False):
                         scoreOfAKind(currentPlayer, 4)
@@ -340,20 +296,19 @@ def main():
                 elif(pygame.Rect((3*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #small straight
                     if (currentPlayer.alreadyScored[9] == False):
                         #check if we have small straight
-                        tempList = [dieOneValue, dieTwoValue, dieThreeValue, dieFourValue, dieFiveValue]
                         smStrOne = [1, 2, 3, 4]
                         smStrTwo = [2, 3, 4, 5]
                         smStrThree = [3, 4, 5, 6]
                         #algorithm for checking subarray from: https://thispointer.com/python-check-if-a-list-contains-all-the-elements-of-another-list/
                         validSmStr = False
                         #check for three possibilities of small straights
-                        validSmStr = all(elem in tempList for elem in smStrOne)
+                        validSmStr = all(elem in dieValues for elem in smStrOne)
 
                         if (not(validSmStr)):
-                            validSmStr = all(elem in tempList for elem in smStrTwo)
+                            validSmStr = all(elem in dieValues for elem in smStrTwo)
                         
                         if (not(validSmStr)):
-                            validSmStr = all(elem in tempList for elem in smStrThree)
+                            validSmStr = all(elem in dieValues for elem in smStrThree)
                         
                         if (validSmStr):
                             currentPlayer.allScores[9] = 30
@@ -372,18 +327,16 @@ def main():
                         clearDice()
                 elif(pygame.Rect((4*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #large straight
                     if (currentPlayer.alreadyScored[10] == False):
-
                         #check if valid large straight
-                        tempList = [dieOneValue, dieTwoValue, dieThreeValue, dieFourValue, dieFiveValue]
                         lgStrOne = [1, 2, 3, 4, 5]
                         lgStrTwo = [2, 3, 4, 5, 6]
                         #algorithm for checking subarray from: https://thispointer.com/python-check-if-a-list-contains-all-the-elements-of-another-list/
                         validLgStr = False
                         #check two possibilites of large straights
-                        validLgStr = all(elem in tempList for elem in lgStrOne)
+                        validLgStr = all(elem in dieValues for elem in lgStrOne)
                         
                         if (not(validLgStr)):
-                            validLgStr = all(elem in tempList for elem in lgStrTwo)
+                            validLgStr = all(elem in dieValues for elem in lgStrTwo)
 
                         if (validLgStr):
                             currentPlayer.allScores[10] = 40
@@ -413,7 +366,7 @@ def main():
                         clearDice()
                 elif(pygame.Rect((6*width)/7, 525, width/7, (height-525)).collidepoint(pygame.mouse.get_pos())): #chance
                     if (currentPlayer.alreadyScored[12] == False):
-                        currentPlayer.allScores[12] = dieOneValue + dieTwoValue + dieThreeValue + dieFourValue + dieFiveValue
+                        currentPlayer.allScores[12] = sum(dieValues)
                         currentPlayer.alreadyScored[12] = True
                         currentPlayer.lowerScore = currentPlayer.lowerScore + currentPlayer.allScores[12]
                         currentPlayer.totalScore = currentPlayer.lowerScore + currentPlayer.upperScore
@@ -427,20 +380,20 @@ def main():
                         clearDice()
 
         #draw current roll state
-        displayDieFromNum(CURR_ONE, dieOneValue)
-        if (dieOne_isLocked):
+        displayDieFromNum(CURR_ONE, dieValues[0])
+        if (diceLockedList[0]):
             displayPicture("lock.png", LOCK_ONE, 0.057416)
-        displayDieFromNum(CURR_TWO, dieTwoValue)
-        if (dieTwo_isLocked):
+        displayDieFromNum(CURR_TWO, dieValues[1])
+        if (diceLockedList[1]):
             displayPicture("lock.png", LOCK_TWO, 0.057416)
-        displayDieFromNum(CURR_THREE, dieThreeValue)
-        if (dieThree_isLocked):
+        displayDieFromNum(CURR_THREE, dieValues[2])
+        if (diceLockedList[2]):
             displayPicture("lock.png", LOCK_THREE, 0.057416)
-        displayDieFromNum(CURR_FOUR, dieFourValue)
-        if (dieFour_isLocked):
+        displayDieFromNum(CURR_FOUR, dieValues[3])
+        if (diceLockedList[3]):
             displayPicture("lock.png", LOCK_FOUR, 0.057416)
-        displayDieFromNum(CURR_FIVE, dieFiveValue)
-        if (dieFive_isLocked):
+        displayDieFromNum(CURR_FIVE, dieValues[4])
+        if (diceLockedList[4]):
             displayPicture("lock.png", LOCK_FIVE, 0.057416)
         
         pygame.display.update()
