@@ -123,14 +123,20 @@ def scoreOfAKind(thisPlayer, num):
     if (frequencyList.count(num) == 1):
         if (num == 3 or num == 4):
             thisPlayer.allScores[num + 3] = sum(dieValues)
+            thisPlayer.alreadyScored[num + 3] = True
+            thisPlayer.lowerScore = thisPlayer.lowerScore + thisPlayer.allScores[num + 3]
         elif (num == 5):
             thisPlayer.allScores[11] = 50
-        thisPlayer.alreadyScored[arrayPos] = True
-        thisPlayer.lowerScore = thisPlayer.lowerScore + thisPlayer.allScores[arrayPos]
+            thisPlayer.alreadyScored[11] = True
+            thisPlayer.lowerScore = thisPlayer.lowerScore + thisPlayer.allScores[11]
+        
         thisPlayer.totalScore = thisPlayer.lowerScore + thisPlayer.upperScore
     else:
-        #not a three of a kind
-        thisPlayer.alreadyScored[arrayPos] = True
+        #invalid score attempt, will score zero
+        if (num == 3 or num == 4):
+            thisPlayer.alreadyScored[num + 3] = True
+        elif (num == 5):
+            thisPlayer.alreadyScored[11] = True
 
 #resets value of and unlocks all dice for next player
 def clearDice():
@@ -139,7 +145,6 @@ def clearDice():
 
     dieValues = [0, 0, 0, 0, 0]
     diceLockedList = [False, False, False, False, False]
-
 
 def finishGame(p1Score, p2Score):
     while (True):
@@ -159,7 +164,6 @@ def finishGame(p1Score, p2Score):
         else:
             displayMessage("It's a tie!", "Raleway-SemiBold.ttf", 60, width/2, (4*height)/5, WHITE, False)
         pygame.display.update()
-
 
 def main():
     #set initial state variables
@@ -481,7 +485,7 @@ def main():
         displayMessage(str(currentPlayer.allScores[10]), "Raleway-Light.ttf", 30, (18*width)/28, 580, WHITE, False) #large straight
         displayMessage(str(currentPlayer.allScores[11]), "Raleway-Light.ttf", 30, (22*width)/28, 580, WHITE, False) #YAHTZEE!
         displayMessage(str(currentPlayer.allScores[12]), "Raleway-Light.ttf", 30, (26*width)/28, 580, WHITE, False) #chance
-
+        
         #if all moves have been made, display results; game must be restarted to play again
         if (player1.alreadyScored.count(True) == 13 and player2.alreadyScored.count(True) == 13):
             finishGame(player1.totalScore, player2.totalScore)
