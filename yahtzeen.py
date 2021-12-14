@@ -2,7 +2,6 @@ import pygame
 import sys
 import random
 from player import Player
-
 pygame.init()
 
 #open a window, set size
@@ -403,7 +402,6 @@ def main():
         pygame.display.update()
 
         #draw "general" UI elements
-
         surface.fill(BKGR_RED)
 
         pygame.draw.line(surface, BLACK, (0, 700/3),(width, 700/3),2) #top third horizontal line
