@@ -21,7 +21,7 @@ __How to Play/Run the Game:__ Run `yahtzeen.py` to play the game. The gameplay i
 
 __Known Issues:__ 
  - The "Upper Section Score," "Lower Section Score," and "Total Score" text will move depending on the number of digits that comprise the score.
- - Clicking on a section to score it will cause a jump to the other player immediately, i.e., you cannot see the score you just made before the player is switched.
+ - Clicking on a section to score it will cause a jump to the other player immediately, i.e., you cannot see the move you just made before the player is switched.
 
 __Any questions?__
     Contact John Reiland at jreiland1@pride.hofstra.edu
