@@ -158,9 +158,9 @@ def finishGame(p1Score, p2Score):
         displayMessage("Player 1's Score........." + str(p1Score), "Raleway-SemiBold.ttf", 60, width/2, (2*height)/6, WHITE, False)
         displayMessage("Player 2's Score........." + str(p2Score), "Raleway-SemiBold.ttf", 60, width/2, (3*height)/6, WHITE, False)
         if (p1Score > p2Score):
-            displayMessage("Player 1 wins by " + str(p1Score - p2Score) + " points!", "Raleway-SemiBold.ttf", 60, width/2, (4*height)/5, WHITE, False)
+            displayMessage("Player 1 wins by " + str(p1Score - p2Score) + " point(s)!", "Raleway-SemiBold.ttf", 60, width/2, (4*height)/5, WHITE, False)
         elif (p2Score > p1Score):
-            displayMessage("Player 2 wins by " + str(p2Score - p1Score) + " points!", "Raleway-SemiBold.ttf", 60, width/2, (4*height)/5, WHITE, False)
+            displayMessage("Player 2 wins by " + str(p2Score - p1Score) + " point(s)!", "Raleway-SemiBold.ttf", 60, width/2, (4*height)/5, WHITE, False)
         else:
             displayMessage("It's a tie!", "Raleway-SemiBold.ttf", 60, width/2, (4*height)/5, WHITE, False)
         pygame.display.update()
