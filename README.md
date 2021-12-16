@@ -10,9 +10,9 @@ __System Requirements:__
 This game requires a screen resolution of 1024x768; the window cannot be scaled/resized.
 To run this program, you __must__ have a 64-bit installation of Python 3, as well an installation of the required `pygame` library (v2.0.0 or greater)
 
-To install on macOS/Linux/Other Unix-like OSes, type the following terminal command: `python3 -m pip install --user pipenv`
+To install on macOS/Linux/Other Unix-like OSes, type the following terminal command: `python3 -m pip install --user pygame`
 
-To install on Windows, type the following into the command prompt `py -m pip install --user pipenv`
+To install on Windows, type the following into the command prompt `py -m pip install --user pygame`
 
     WARNING: This game has not been tested on platforms other than macOS!!!
 
