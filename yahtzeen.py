@@ -116,7 +116,6 @@ def scoreUpperSection(thisPlayer, num):
 def scoreOfAKind(thisPlayer, num):
     global frequencyList
     global dieValues
-    arrayPos = 0 #where to place score
 
     makeFrequencyList()
     if (frequencyList.count(num) == 1):
@@ -133,8 +132,10 @@ def scoreOfAKind(thisPlayer, num):
     else:
         #invalid score attempt, will score zero
         if (num == 3 or num == 4):
+            thisPlayer.allScores[num + 3] = 0
             thisPlayer.alreadyScored[num + 3] = True
         elif (num == 5):
+            thisPlayer.allScores[11] = 0
             thisPlayer.alreadyScored[11] = True
 
 #resets value of and unlocks all dice for next player
@@ -287,6 +288,7 @@ def main():
                             currentPlayer.totalScore = currentPlayer.lowerScore + currentPlayer.upperScore
                         else:
                             #not a full house
+                            currentPlayer.allScores[8] = 0
                             currentPlayer.alreadyScored[8] = True
 
                         if (currentPlayer.playerNumber == 1):
@@ -319,6 +321,7 @@ def main():
                             currentPlayer.lowerScore = currentPlayer.lowerScore + currentPlayer.allScores[9]
                             currentPlayer.totalScore = currentPlayer.lowerScore + currentPlayer.upperScore
                         else:
+                            currentPlayer.allScores[9] = 0
                             currentPlayer.alreadyScored[9] = True
 
                         if (currentPlayer.playerNumber == 1):
@@ -347,6 +350,7 @@ def main():
                             currentPlayer.lowerScore = currentPlayer.lowerScore + currentPlayer.allScores[10]
                             currentPlayer.totalScore = currentPlayer.lowerScore + currentPlayer.upperScore
                         else:
+                            currentPlayer.allScores[10] = 0
                             currentPlayer.alreadyScored[10] = True
 
                         if (currentPlayer.playerNumber == 1):
