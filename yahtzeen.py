@@ -181,7 +181,7 @@ def main():
             if (event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)): #quit game
                 pygame.quit()
                 sys.exit()
-            if (event.type == pygame.MOUSEBUTTONDOWN): #mouse click events
+            if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1): #mouse click event, left mouse button is id 1, see readme for more info
                 if(ROLL_NOW.collidepoint(pygame.mouse.get_pos())):
                     if (currentRollNum < 3):
                         rollDice()

@@ -3,6 +3,7 @@ The "Smooch" font is credit Robert Leuschke and is used under the Open Font Lice
 in `OFL_raleway.txt` in this repository.
 This project is generally licensed under the MIT License provided in LICENSE.md.
 Subarray algorithm provided by: https://thispointer.com/python-check-if-a-list-contains-all-the-elements-of-another-list/
+Mouse click info provided by: https://stackoverflow.com/a/34288442
 
 __System Requirements:__
 
